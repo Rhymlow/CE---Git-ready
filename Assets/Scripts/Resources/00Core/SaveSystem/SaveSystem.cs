@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    #region SAVE/LOAD PLAYER DATA
+    #region SAVE/LOAD GAME DATA
 
     public static void SaveGame(GameData gameData)
     {

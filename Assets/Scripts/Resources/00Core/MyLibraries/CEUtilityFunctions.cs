@@ -26,6 +26,10 @@ namespace CEutilities
             playerInventory = gameData.playerInventory;
         }
     }
+
+    public class IslandData
+    {  
+    }
 }
 
 

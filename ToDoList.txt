@@ -1,0 +1,6 @@
+1. Hacer el sistema de guardado.
+
+    -Hacer el script de estructura de datos que solo tenga de momento la lista de gameObjects. EN CURSO
+    
+    -Hacer un sistema de push y pull de momento desconectado de todo, que se ejecute cuando yo active un booleano en gamesystem y otro que cargue igual con un booleano en gamesystem, y cuando haga push agarre una lista de objetos de todo lo que hay en escena y lo guarde, exceptuando lo que tenga un tag de UI o System o lo que sea que invente para diferenciar las comsas como gamesyte, managers jugador y esas cosas, solo lo GO que esten el mundo. PENDINTE
+    -Conectar el push y pull con llamadas logicas en el juego, como en la generacion de mundo, preguntar primero si ya hay algo guardado para no generar el mundo de cero y guardar en una llamada que de momento este desconectada porque se conectara con el paso de dia o con un boton de guardado. PENDIENTE
