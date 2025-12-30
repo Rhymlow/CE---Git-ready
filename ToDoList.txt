@@ -4,3 +4,35 @@
     
     -Hacer un sistema de push y pull de momento desconectado de todo, que se ejecute cuando yo active un booleano en gamesystem y otro que cargue igual con un booleano en gamesystem, y cuando haga push agarre una lista de objetos de todo lo que hay en escena y lo guarde, exceptuando lo que tenga un tag de UI o System o lo que sea que invente para diferenciar las comsas como gamesyte, managers jugador y esas cosas, solo lo GO que esten el mundo. PENDINTE
     -Conectar el push y pull con llamadas logicas en el juego, como en la generacion de mundo, preguntar primero si ya hay algo guardado para no generar el mundo de cero y guardar en una llamada que de momento este desconectada porque se conectara con el paso de dia o con un boton de guardado. PENDIENTE
+
+Necesitamos hacer el sistema de pasar dias para que el jugador pueda ver el resultado de sus cultivos.
+	Hacer que cuando el jugador haga interaccion con la cama se desactive el control del jugador, se haga una 
+	transicion de fundido a negro, una texto y animacion indicando el dia y hacer la transicion al nuevo dia, y cuendo
+	el texto desaparezca se haga fundido a otra vez el player dentro de la casa. Despues para que se vea mas 
+	profesional ponerlo acostado y que cuando el jugador se mueva salga brincando de la cama.		
+
+Necesitamos hacer el sistema donde el jugador coseche sus cultivos y los guarde en un inventario o algo.
+	Ya con el sistema del paso de dia simplemente hacer que el cultivo detecte que si paso el dia pase a una transicion
+	de cultivo mas crecido, hacer la variable adentro de cada cultivo, y solo hacer que si el cultivo esta por encima
+	de una cierta cantidad de dias, el cultivo pase a su siguente fase, hacer la actualizacion de todo lo que necesite
+	una actualizacion por dia y cuando todo este actualizado guardar el juego.
+
+Necesitamos hacer el sistema para meter los cultivos y items en general en un cajon para que se vendan.
+	El almacenamiento literalmente sera invocar una dimension para guardar cosas, igual luego para hacer alguna especie
+	de progresion hacer que se tenga que obtener de alguna manera esta dimension, como obtener mas y hacerlas mas 
+	grandes, el funcionamiento sera invocar un agujero donde se puede aventar los items, y cuando entren
+	automaticamente ocupara un lugar del inventario, y dentro del almacen simplemente agarrar los items, aventarlos a
+	la puerta y asi cuando salgas ya todo lo que aventaste afuera estara ahi.
+
+Necesitamos hacer el sistema de dinero.
+	Que de momento este entre el boton de configuracion y los botones de accion y que tenga una entrada facil para que
+	se pueda modificar el dinero cuando el jugador venda cosas o compre cosas, una animacion de dinero mas(verde) o 
+	dinero menos(rojo) y que cuando termine la anicamacion se haga una animacioncita como de cronometro, que en un 
+	tiempo se recorra del numero total anterior al numero total resultante despues de la compra o venta.
+
+Necesitamos hacer el sistema de entrar a otras localizaciones, como casas, arboles o dimensiones.
+	Para hacer esto empezaremos con la casa principal que se pueda interactuar con la puerta y asi nos envie al 
+	interior de la casa, que de momento solo sera un espacio negro vacio, un plano para caminar, paredes invisibles
+	para que no te caigas por los extremos, un recuadro que no tenga pared invisible que represente la puerta de
+	salida y que si caminas hacia alla llegando a un limite automaticamente te saque, adentro un cubo que sera la cama
+	y que con el boton de interaccion pueda darle a la cama para dormir y ahora si pasar el dia.
