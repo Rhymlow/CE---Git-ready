@@ -19,6 +19,7 @@ public class GameSystem : MonoBehaviour
     public static Material highlightedWrongMaterial;
     public static GameObject highlightedObject;
     public static GameObject pickedUpObject;
+    public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tnega un default
     public static GameObject cameraOrbit;
 
     #region MANAGERS
@@ -141,8 +142,7 @@ public class GameSystem : MonoBehaviour
         {
             if (highlightedObject.transform.parent)
             {
-                GameObject tParent = highlightedObject.transform.parent.gameObject;
-                tParent.transform.SetParent(player.transform);
+                highlightedObject.transform.parent.gameObject.transform.SetParent(player.transform);
                 highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ontriggersActivated = false;
                 pickeableObjects.RemoveAll(x => x == highlightedObject);
                 pickedUpObject = highlightedObject;
@@ -165,16 +165,16 @@ public class GameSystem : MonoBehaviour
 
     public static void PlacePickedUpObject()
     {
-        if (pickedUpObject.transform.Find("default") && pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
+        if (pickedUpObject && pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
-            pickedUpObject.transform.SetParent(null);
-            pickedUpObject.transform.localScale = new Vector3(1, 1, 1);
+            pickedUpObject.transform.parent.SetParent(null);
+            pickedUpObject.transform.parent.transform.localScale = new Vector3(1, 1, 1);
             pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ontriggersActivated = true;
             pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             pickedUpObject = null;
         }
-        else if(pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
+        else if(pickedUpObject.transform.Find("default").GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
             pickedUpObject.transform.SetParent(null);
             pickedUpObject.transform.localScale = new Vector3(1, 1, 1);
@@ -215,6 +215,11 @@ public class GameSystem : MonoBehaviour
                 }
             }
             highlightedObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
+        }
+        else if (pickedUpParentObject)
+        {
+            float invertedObjLookAt = (cameraOrbit.transform.Find("Main Camera").transform.position.y - player.transform.position.y);
+            pickedUpObject.transform.parent.transform.position = player.transform.position + player.transform.right * -2.0f + new Vector3(0, -invertedObjLookAt + 2.0f, 0);
         }
         else if (pickedUpObject)
         {
