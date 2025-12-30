@@ -145,6 +145,7 @@ public class GameSystem : MonoBehaviour
                 highlightedObject.transform.parent.gameObject.transform.SetParent(player.transform);
                 highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ontriggersActivated = false;
                 pickeableObjects.RemoveAll(x => x == highlightedObject);
+                pickedUpParentObject = highlightedObject.transform.parent.gameObject;
                 pickedUpObject = highlightedObject;
                 pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
@@ -165,7 +166,7 @@ public class GameSystem : MonoBehaviour
 
     public static void PlacePickedUpObject()
     {
-        if (pickedUpObject && pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
+        if (pickedUpObject && pickedUpParentObject && pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
             pickedUpObject.transform.parent.SetParent(null);
             pickedUpObject.transform.parent.transform.localScale = new Vector3(1, 1, 1);
@@ -174,7 +175,7 @@ public class GameSystem : MonoBehaviour
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             pickedUpObject = null;
         }
-        else if(pickedUpObject.transform.Find("default").GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
+        else if(pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
             pickedUpObject.transform.SetParent(null);
             pickedUpObject.transform.localScale = new Vector3(1, 1, 1);
@@ -219,7 +220,7 @@ public class GameSystem : MonoBehaviour
         else if (pickedUpParentObject)
         {
             float invertedObjLookAt = (cameraOrbit.transform.Find("Main Camera").transform.position.y - player.transform.position.y);
-            pickedUpObject.transform.parent.transform.position = player.transform.position + player.transform.right * -2.0f + new Vector3(0, -invertedObjLookAt + 2.0f, 0);
+            pickedUpParentObject.transform.position = player.transform.position + player.transform.right * -2.0f + new Vector3(0, -invertedObjLookAt + 2.0f, 0);
         }
         else if (pickedUpObject)
         {
