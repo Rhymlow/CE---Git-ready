@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using CEutilities;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameSystem : MonoBehaviour
 {
@@ -21,6 +22,25 @@ public class GameSystem : MonoBehaviour
     public static GameObject pickedUpObject;
     public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tnega un default
     public static GameObject cameraOrbit;
+
+    #region FILTER ROOTS
+
+    public static Scene scene = SceneManager.GetActiveScene();
+    public static GameObject[] rootObjects = scene.GetRootGameObjects();
+    public static List<GameObject> filteredRoots = new List<GameObject>();
+
+    public static void FillFilteredRoots()
+    {
+        foreach (GameObject go in rootObjects)
+        {
+            if (go.CompareTag("UI"))
+                continue;
+
+            filteredRoots.Add(go);
+        }
+    }
+
+    #endregion
 
     #region MANAGERS
 
