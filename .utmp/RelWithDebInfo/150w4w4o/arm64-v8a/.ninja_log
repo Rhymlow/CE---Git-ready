@@ -1,0 +1,10 @@
+# ninja log v5
+114	20130	7889189220820553	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	8c50904a9bca4f8b
+130	20174	7889189220876048	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	eaa7c24b7ac44baa
+71	20464	7889189222426922	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	3c86cbe5011cba0a
+6	20768	7889189227368320	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	e13e80d52f1e45c1
+99	22557	7889189246250893	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	4f5502c77c7bcba7
+85	23402	7889189255215770	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	a82a5921be533c7b
+20175	26555	7889189286115686	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	35b962222df3ae45
+20150	28071	7889189301804448	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	9aa0c442f90a8947
+28072	29043	7889189312128028	C:/Users/yairm/UnityProyects/CE - para instalar git/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/150w4w4o/obj/arm64-v8a/libgame.so	234e15b55970b457

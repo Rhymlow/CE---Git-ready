@@ -15,6 +15,11 @@ public class GameManager : GameSystem
         InitializeGame();
     }
 
+    private void Start()
+    {
+        FillFilteredRoots();
+    }
+
 
     void Update()
     {
@@ -34,6 +39,7 @@ public class GameManager : GameSystem
         spellBells[15] = Resources.Load("00/Music/SpellBellSuccess") as AudioClip;
         spellBells[16] = Resources.Load("00/Music/SpellBellError") as AudioClip;
         #endregion
+        gameID = "Game_1";
         cameraOrbit = GameObject.Find("Camera Orbit");
         highlightedMaterial = Resources.Load("Materials/HighlightGameObject") as Material;
         highlightedWrongMaterial = Resources.Load("Materials/HighlightWrongObject") as Material;

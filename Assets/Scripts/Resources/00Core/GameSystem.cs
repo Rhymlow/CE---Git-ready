@@ -25,20 +25,9 @@ public class GameSystem : MonoBehaviour
 
     #region FILTER ROOTS
 
-    public static Scene scene = SceneManager.GetActiveScene();
-    public static GameObject[] rootObjects = scene.GetRootGameObjects();
-    public static List<GameObject> filteredRoots = new List<GameObject>();
+    
 
-    public static void FillFilteredRoots()
-    {
-        foreach (GameObject go in rootObjects)
-        {
-            if (go.CompareTag("UI"))
-                continue;
-
-            filteredRoots.Add(go);
-        }
-    }
+    
 
     #endregion
 
@@ -64,20 +53,22 @@ public class GameSystem : MonoBehaviour
 
     #region SAVE/LOAD GAME
 
-    public static string GameID;
+    public static string gameID;
     public static GameData gameData;
 
     public static void SaveGame()
     {
-        if (!Directory.Exists(Application.persistentDataPath + "/" + GameID))
+        FillFilteredRoots();
+        if (!Directory.Exists(Application.persistentDataPath + "/" + gameID))
         {
-            Directory.CreateDirectory(Application.persistentDataPath + "/" + GameID);
-            if (!Directory.Exists(Application.persistentDataPath + "/" + GameID + "/WorldData"))
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + gameID);
+            if (!Directory.Exists(Application.persistentDataPath + "/" + gameID + "/WorldData"))
             {
-                Directory.CreateDirectory(Application.persistentDataPath + "/" + GameID + "/WorldData");
+                Directory.CreateDirectory(Application.persistentDataPath + "/" + gameID + "/WorldData");
             }
         }
-        SaveSystem.SaveGame(new GameData()/*AQUI EN VEZ DE NEW GAME DATA DEBERIA IR EL GAME DATA QUE SE VA A GUARDAR*/);
+        SaveSystem.SaveGame(new GameData(gameID,new PlayerData(player.transform.position), new IslandData(filteredRoots)));
+        filteredRoots = new List<GameObject>();
     }
 
     public static void LoadGame()
@@ -90,6 +81,19 @@ public class GameSystem : MonoBehaviour
         else
         {
             Debug.Log("No se pudo cargar el archivo");
+        }
+    }
+
+    public static List<GameObject> filteredRoots = new List<GameObject>();
+    public static void FillFilteredRoots()
+    {
+        GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (GameObject go in rootObjects)
+        {
+            if (go.CompareTag("System") || go.CompareTag("Terrain") || go.CompareTag("Player"))
+                continue;
+
+            filteredRoots.Add(go);
         }
     }
 

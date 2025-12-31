@@ -23,6 +23,13 @@ namespace CEutilities
             playerData = gameData.playerData;
             islandData = gameData.islandData;
         }
+
+        public GameData(string tGameID, PlayerData tPlayerData, IslandData tIslandData)
+        {
+            gameID = tGameID;
+            playerData = tPlayerData;
+            islandData = tIslandData;
+        }
     }
 
     public class IslandData

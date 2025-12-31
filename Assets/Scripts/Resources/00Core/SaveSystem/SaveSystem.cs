@@ -10,7 +10,7 @@ public static class SaveSystem
     public static void SaveGame(GameData gameData)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/" + GameSystem.GameID + "/gameData.ssl";
+        string path = Application.persistentDataPath + "/" + GameSystem.gameID + "/gameData.ssl";
         FileStream stream = new FileStream(path, FileMode.Create);
         GameData data = new GameData(gameData);
         formatter.Serialize(stream, data);
@@ -19,7 +19,7 @@ public static class SaveSystem
 
     public static GameData LoadGame()
     {
-        string camino = Application.persistentDataPath + "/" + GameSystem.GameID + "/gameData.ssl";
+        string camino = Application.persistentDataPath + "/" + GameSystem.gameID + "/gameData.ssl";
         if (File.Exists(camino))
         {
             BinaryFormatter formateador = new BinaryFormatter();

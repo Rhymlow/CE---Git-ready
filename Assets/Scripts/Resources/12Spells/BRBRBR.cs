@@ -10,14 +10,7 @@ public class BRBRBR : MonoBehaviour
         CastSpell();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void CastSpell()
     {
-
     }
 }
