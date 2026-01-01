@@ -20,7 +20,7 @@ public class WorldItemsSpawner : MonoBehaviour
     public float updateInterval = 1f; // Tiempo en segundos entre actualizaciones
 
     private List<GameObject> spawnedCubes = new List<GameObject>();
-    private float timer = 0f;
+    //private float timer = 0f;
 
     void Start()
     {

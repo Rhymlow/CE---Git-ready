@@ -15,31 +15,38 @@ public class PickObjectBehaviour : MonoBehaviour
         pickeableObjectMaterial = transform.parent.GetComponent<MeshRenderer>().material;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == GameSystem.player && !GameSystem.pickeableObjects.Contains(transform.parent.gameObject) && ontriggersActivated)
+        if (GameSystem.constructionModeActivated)
         {
-            GameSystem.pickeableObjects.Add(transform.parent.gameObject);
-        }
-        if (GameSystem.pickedUpObject && other.transform.tag == "Terrain")
-        {
-            GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedMaterial;
+            if (other.gameObject == GameSystem.player && GameSystem.pickeableObjects.Contains(transform.parent.gameObject) && ontriggersActivated)
+            {
+                GameSystem.pickeableObjects.RemoveAll(x => x == transform.parent.gameObject);
+                if (transform.parent.GetComponent<MeshRenderer>().material != pickeableObjectMaterial)
+                {
+                    transform.parent.GetComponent<MeshRenderer>().material = pickeableObjectMaterial;
+                }
+            }
+            if (GameSystem.pickedUpObject && other.transform.tag == "Terrain")
+            {
+                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedWrongMaterial;
+            }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == GameSystem.player && GameSystem.pickeableObjects.Contains(transform.parent.gameObject) && ontriggersActivated)
+        if (GameSystem.constructionModeActivated)
         {
-            GameSystem.pickeableObjects.RemoveAll(x => x == transform.parent.gameObject);
-            if (transform.parent.GetComponent<MeshRenderer>().material != pickeableObjectMaterial)
+            if (other.gameObject == GameSystem.player && !GameSystem.pickeableObjects.Contains(transform.parent.gameObject) && ontriggersActivated)
             {
-                transform.parent.GetComponent<MeshRenderer>().material = pickeableObjectMaterial;
+                GameSystem.pickeableObjects.Add(transform.parent.gameObject);
+            }
+            if (GameSystem.pickedUpObject && other.transform.tag == "Terrain")
+            {
+                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedMaterial;
             }
         }
-        if (GameSystem.pickedUpObject && other.transform.tag == "Terrain")
-        {
-            GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedWrongMaterial;
-        }
+
     }
 }

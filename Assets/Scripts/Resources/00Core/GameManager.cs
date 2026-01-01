@@ -47,8 +47,9 @@ public class GameManager : GameSystem
         player = GameObject.Find("Player");
         gameManager = this;
         SendMessageToDiscord("c/dar 1 rhymlow");
-        Instantiate(Resources.Load("10/01/01/02") as GameObject);
         Instantiate(Resources.Load("10/01/01/03") as GameObject);
+        Instantiate(Resources.Load("10/01/01/01") as GameObject);
+        constructionModeActivated = false;
     }
 
 

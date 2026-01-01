@@ -16,14 +16,20 @@ public class B : MonoBehaviour
 
     void EffectTest()
     {
-        if (GameSystem.pickedUpObject)
+        if (GameSystem.constructionModeActivated)
         {
-            GameSystem.PlacePickedUpObject();
+            if (GameSystem.pickedUpObject)
+            {
+                GameSystem.PlacePickedUpObject();
+            }
+            else
+            {
+                GameSystem.PickUpHighlightedObject();
+            }
         }
         else
         {
-            GameSystem.PickUpHighlightedObject();
         }
-        Destroy(this.transform.gameObject);
+            Destroy(this.transform.gameObject);
     }
 }

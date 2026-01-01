@@ -16,7 +16,7 @@ public class Y : MonoBehaviour
 
     void EffectTest()
     {
-        //Efecto que debe hacer este script
+        GameSystem.ActivateConstructionMode();
         Destroy(this.transform.gameObject);
     }
 }

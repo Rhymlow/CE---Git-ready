@@ -20,9 +20,34 @@ public class GameSystem : MonoBehaviour
     public static Material highlightedWrongMaterial;
     public static GameObject highlightedObject;
     public static GameObject pickedUpObject;
-    public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tnega un default
+    public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tenga un default
     public static GameObject cameraOrbit;
 
+    #region CONSTRUCTION MODE
+
+    public static bool constructionModeActivated;
+    public static void ActivateConstructionMode()
+    {
+        if(constructionModeActivated == false)
+        {
+            constructionModeActivated = true;
+        }
+        else 
+        {
+            if(!pickedUpObject && !pickedUpParentObject)
+            {
+                constructionModeActivated = false;
+                if (highlightedObject)
+                {
+                    highlightedObject.GetComponent<MeshRenderer>().material = highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
+                    pickeableObjects = new List<GameObject>();
+                    highlightedObject = null;
+                }
+            }
+        }
+    }
+
+    #endregion
 
     #region MANAGERS
 
