@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 601943614357604388}
   m_Layer: 0
   m_Name: 03
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730e259785da0c74da3c58b81f2ac75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabpath: 10010103
+  prefabpath: 10/01/01/03
 --- !u!1 &5073244191568127155
 GameObject:
   m_ObjectHideFlags: 0

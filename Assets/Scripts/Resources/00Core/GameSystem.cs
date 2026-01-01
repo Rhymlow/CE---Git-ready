@@ -23,13 +23,6 @@ public class GameSystem : MonoBehaviour
     public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tnega un default
     public static GameObject cameraOrbit;
 
-    #region FILTER ROOTS
-
-    
-
-    
-
-    #endregion
 
     #region MANAGERS
 
@@ -58,6 +51,7 @@ public class GameSystem : MonoBehaviour
 
     public static void SaveGame()
     {
+        filteredRoots = new List<GameObject>();
         FillFilteredRoots();
         if (!Directory.Exists(Application.persistentDataPath + "/" + gameID))
         {
@@ -76,7 +70,17 @@ public class GameSystem : MonoBehaviour
         gameData = SaveSystem.LoadGame();
         if (gameData != null)
         {
-            //Debug.Log("Game Loaded");
+            player.transform.position = new Vector3(gameData.playerData.playerSpawnPoint.x, gameData.playerData.playerSpawnPoint.y + 40, gameData.playerData.playerSpawnPoint.z);
+            DestroyFilteredRoots();
+            pickeableObjects = new List<GameObject>();
+            highlightedObject = null;
+            pickedUpObject = null;
+            pickedUpParentObject = null;
+            foreach (MyGameObject obj in gameData.islandData.SavedGameObjects)
+            {
+                Instantiate(Resources.Load(obj.prefabPath) as GameObject, new Vector3(obj.position.x, obj.position.y, obj.position.z), new Quaternion(obj.rotation.x, obj.rotation.y, obj.rotation.z, obj.rotation.w));
+            }
+            Debug.Log("Game Loaded");
         }
         else
         {
@@ -90,10 +94,22 @@ public class GameSystem : MonoBehaviour
         GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
         foreach (GameObject go in rootObjects)
         {
-            if (go.CompareTag("System") || go.CompareTag("Terrain") || go.CompareTag("Player"))
+            if (go.CompareTag("System") || go.CompareTag("Terrain") || go.CompareTag("Player") || go.CompareTag("Untagged"))
                 continue;
 
             filteredRoots.Add(go);
+        }
+    }
+
+    public static void DestroyFilteredRoots()
+    {
+        GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (GameObject go in rootObjects)
+        {
+            if (go.CompareTag("System") || go.CompareTag("Terrain") || go.CompareTag("Player") || go.CompareTag("Untagged"))
+                continue;
+
+            Destroy(go);
         }
     }
 
