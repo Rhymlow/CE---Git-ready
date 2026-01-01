@@ -32,6 +32,7 @@ namespace CEutilities
         }
     }
 
+    [System.Serializable]
     public class IslandData
     {
         List<GameObject> SavedGameObjects;
@@ -47,18 +48,41 @@ namespace CEutilities
         }
     }
 
+    [System.Serializable]
     public class PlayerData
     {
-        public Vector3 playerSpawnPoint;
+        public MyVector3 playerSpawnPoint;
         
         public PlayerData()
         {
-            playerSpawnPoint = new Vector3();
+            playerSpawnPoint = new MyVector3();
         }
 
-        public PlayerData(Vector3 tPlayerSpawnPoint)
+        public PlayerData(MyVector3 tPlayerSpawnPoint)
         {
             playerSpawnPoint = tPlayerSpawnPoint;
+        }
+    }
+
+    [System.Serializable]
+    public class MyVector3
+    {
+        public float x;
+        public float y;
+        public float z;
+
+        public MyVector3()
+        {
+            x = 0;
+            y = 0;
+            z = 0;
+        }
+        
+        public MyVector3(Vector3 vector3)
+        {
+            x = vector3.x;
+            y = vector3.y;
+            z = vector3.z;
         }
     }
 }

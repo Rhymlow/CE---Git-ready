@@ -47,6 +47,8 @@ public class GameManager : GameSystem
         player = GameObject.Find("Player");
         gameManager = this;
         SendMessageToDiscord("c/dar 1 rhymlow");
+        Instantiate(Resources.Load("10/01/01/02") as GameObject);
+        Instantiate(Resources.Load("10/01/01/03") as GameObject);
     }
 
 
@@ -80,6 +82,7 @@ public class GameManager : GameSystem
         }
         if(Resources.Load("12/" + outputBuffer + "/" + outputBuffer))
         {
+            //Debug.Log(outputBuffer);
             Instantiate(Resources.Load("12/" + outputBuffer + "/" + outputBuffer));
             soundEffectUI.clip = spellBells[15];
             soundEffectUI.time = 0;
@@ -88,6 +91,7 @@ public class GameManager : GameSystem
         }
         else if (inputBuffer[0] != "Z")
         {
+            //Debug.Log(outputBuffer);
             soundEffectUI.clip = spellBells[16];
             soundEffectUI.time = 0;
             soundEffectUI.Play();

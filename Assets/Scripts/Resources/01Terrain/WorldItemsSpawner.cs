@@ -29,13 +29,13 @@ public class WorldItemsSpawner : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
+        /*timer += Time.deltaTime;
         if (timer >= updateInterval)
         {
             timer = 0f;
             ClearCubes();
             GenerateCubes();
-        }
+        }*/
     }
 
     void GenerateCubes()

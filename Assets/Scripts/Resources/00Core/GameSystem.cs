@@ -67,7 +67,7 @@ public class GameSystem : MonoBehaviour
                 Directory.CreateDirectory(Application.persistentDataPath + "/" + gameID + "/WorldData");
             }
         }
-        SaveSystem.SaveGame(new GameData(gameID,new PlayerData(player.transform.position), new IslandData(filteredRoots)));
+        SaveSystem.SaveGame(new GameData(gameID,new PlayerData(new MyVector3(player.transform.position)), new IslandData(filteredRoots)));
         filteredRoots = new List<GameObject>();
     }
 

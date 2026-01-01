@@ -12,5 +12,7 @@ public class BRBRBR : MonoBehaviour
 
     void CastSpell()
     {
+        GameSystem.SaveGame();
+        Destroy(this.transform.gameObject);
     }
 }
