@@ -6,12 +6,11 @@
 
 Necesitamos hacer el sistema de pasar dias para que el jugador pueda ver el resultado de sus cultivos.
 
-	-Hacer que el buton amarillo active y desactive el modo construccion, y dejar el boton azul como modo de accion, este paso es necesario aqui porque necesitamos que cuando el jugador este junto al de momento placeholder de la cama pueda usarla pulsando un boton pero luego si es que quisiera moverla activando el modo construccion pueda moverla. En curso
+	-Hacer que el buton amarillo active y desactive el modo construccion, y dejar el boton azul como modo de accion, este paso es necesario aqui porque necesitamos que cuando el jugador este junto al de momento placeholder de la cama pueda usarla pulsando un boton pero luego si es que quisiera moverla activando el modo construccion pueda moverla. COMPLETADO
 
-	-Hacer que cuando el jugador haga interaccion con la cama se desactive el control del jugador, se haga una 
-	transicion de fundido a negro, una texto y animacion indicando el dia y hacer la transicion al nuevo dia, y cuendo
-	el texto desaparezca se haga fundido a otra vez el player dentro de la casa. Despues para que se vea mas 
-	profesional ponerlo acostado y que cuando el jugador se mueva salga brincando de la cama. PENDIENTE
+	-Hacer que cuando se active el constructormode se actualizen con un triggerstay para que si ya estas dentro de un radio de un objecto que podria ser suseptible a moverlo pues se active, y no hasta el entrar salir del triggerenter, y que si tienes algo pickeado no puedas salir del construction mode para evitar errores y cosas raras. COMPLETADO
+
+	-Hacer que cuando el jugador haga interaccion con la cama se desactive el control del jugador, se haga una courutine que haga que el tiempo pase rapido poniendose oscuro y un texto aparezca en pantalla indicando que el dia 1 acabo y pase al dia 2. EN CURSO
 
 	-Conectar el sistema de guardado para que cuando se haga el paso de dia se guarde todo. PENDIENTE
 

@@ -4,7 +4,8 @@ using UnityEngine;
 public class PickObjectBehaviour : MonoBehaviour
 {
     public Material pickeableObjectMaterial;
-    public bool ontriggersActivated = true;
+    public bool onTriggersActivated = true;
+    public bool onTriggerStaySwitch = false;
     public Vector3 scaleModifier = new Vector3(0.5f, 0.5f, 0.5f);
     public Vector3 positionModifier = new Vector3(0, 0, 0);
     public Vector3[] raycastposition = new Vector3[4];
@@ -15,11 +16,22 @@ public class PickObjectBehaviour : MonoBehaviour
         pickeableObjectMaterial = transform.parent.GetComponent<MeshRenderer>().material;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (GameSystem.constructionModeActivated)
+        {
+            if (GameSystem.pickedUpObject && other.transform.tag == "Terrain")
+            {
+                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedMaterial;
+            }
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (GameSystem.constructionModeActivated)
         {
-            if (other.gameObject == GameSystem.player && GameSystem.pickeableObjects.Contains(transform.parent.gameObject) && ontriggersActivated)
+            if (other.gameObject == GameSystem.player && GameSystem.pickeableObjects.Contains(transform.parent.gameObject) && onTriggersActivated)
             {
                 GameSystem.pickeableObjects.RemoveAll(x => x == transform.parent.gameObject);
                 if (transform.parent.GetComponent<MeshRenderer>().material != pickeableObjectMaterial)
@@ -38,15 +50,22 @@ public class PickObjectBehaviour : MonoBehaviour
     {
         if (GameSystem.constructionModeActivated)
         {
-            if (other.gameObject == GameSystem.player && !GameSystem.pickeableObjects.Contains(transform.parent.gameObject) && ontriggersActivated)
+            if (other.gameObject == GameSystem.player && !GameSystem.pickeableObjects.Contains(transform.parent.gameObject) && onTriggersActivated)
             {
                 GameSystem.pickeableObjects.Add(transform.parent.gameObject);
             }
-            if (GameSystem.pickedUpObject && other.transform.tag == "Terrain")
+            if(GameSystem.pickedUpObject && other.name != "default" && !onTriggersActivated && other.transform.tag != "Terrain" && onTriggerStaySwitch == false)
             {
-                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedMaterial;
+                Debug.Log(other.name);
+                Debug.Log("1");
+                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedWrongMaterial;
+                onTriggerStaySwitch = true;
             }
+            /*else if(GameSystem.pickedUpObject && !onTriggersActivated && other.transform.tag != "Terrain" && onTriggerStaySwitch == false)
+            {
+                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedWrongMaterial;
+                onTriggerStaySwitch = true;
+            }*/
         }
-
     }
 }

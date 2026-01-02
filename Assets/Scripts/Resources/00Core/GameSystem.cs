@@ -208,21 +208,21 @@ public class GameSystem : MonoBehaviour
             if (highlightedObject.transform.parent)
             {
                 highlightedObject.transform.parent.gameObject.transform.SetParent(player.transform);
-                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ontriggersActivated = false;
+                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = false;
+                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggerStaySwitch = false;
                 pickeableObjects.RemoveAll(x => x == highlightedObject);
                 pickedUpParentObject = highlightedObject.transform.parent.gameObject;
                 pickedUpObject = highlightedObject;
-                pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
                 highlightedObject = null;
             }
             else
             {
                 highlightedObject.transform.SetParent(player.transform);
-                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ontriggersActivated = false;
+                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = false;
+                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggerStaySwitch = false;
                 pickeableObjects.RemoveAll(x => x == highlightedObject);
                 pickedUpObject = highlightedObject;
-                pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
                 highlightedObject = null;
             }
@@ -234,7 +234,7 @@ public class GameSystem : MonoBehaviour
         if (pickedUpObject && pickedUpParentObject && pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
             pickedUpParentObject.transform.SetParent(null);
-            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ontriggersActivated = true;
+            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = true;
             pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             pickedUpParentObject = null;
@@ -243,7 +243,7 @@ public class GameSystem : MonoBehaviour
         else if(pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
             pickedUpObject.transform.SetParent(null);
-            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ontriggersActivated = true;
+            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = true;
             pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             pickedUpObject = null;
