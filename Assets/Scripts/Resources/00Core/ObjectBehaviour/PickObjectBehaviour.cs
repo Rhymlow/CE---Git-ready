@@ -56,16 +56,9 @@ public class PickObjectBehaviour : MonoBehaviour
             }
             if(GameSystem.pickedUpObject && other.name != "default" && !onTriggersActivated && other.transform.tag != "Terrain" && onTriggerStaySwitch == false)
             {
-                Debug.Log(other.name);
-                Debug.Log("1");
                 GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedWrongMaterial;
                 onTriggerStaySwitch = true;
             }
-            /*else if(GameSystem.pickedUpObject && !onTriggersActivated && other.transform.tag != "Terrain" && onTriggerStaySwitch == false)
-            {
-                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedWrongMaterial;
-                onTriggerStaySwitch = true;
-            }*/
         }
     }
 }

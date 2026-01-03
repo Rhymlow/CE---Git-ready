@@ -17,7 +17,7 @@ public class GameManager : GameSystem
 
     private void Start()
     {
-        FillFilteredRoots();
+        
     }
 
 
@@ -39,6 +39,7 @@ public class GameManager : GameSystem
         spellBells[15] = Resources.Load("00/Music/SpellBellSuccess") as AudioClip;
         spellBells[16] = Resources.Load("00/Music/SpellBellError") as AudioClip;
         #endregion
+        FillFilteredRoots();
         gameID = "Game_1";
         cameraOrbit = GameObject.Find("Camera Orbit");
         highlightedMaterial = Resources.Load("Materials/HighlightGameObject") as Material;

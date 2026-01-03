@@ -15,6 +15,7 @@ public class GameSystem : MonoBehaviour
     public static GameObject player;
     public static AudioSource soundEffectUI;
     public static List<GameObject> pickeableObjects = new List<GameObject>();
+    public static List<GameObject> usableObjects = new List<GameObject>();
     public static AudioClip[] spellBells = new AudioClip[17];
     public static Material highlightedMaterial;
     public static Material highlightedWrongMaterial;

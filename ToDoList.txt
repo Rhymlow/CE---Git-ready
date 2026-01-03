@@ -10,32 +10,19 @@ Necesitamos hacer el sistema de pasar dias para que el jugador pueda ver el resu
 
 	-Hacer que cuando se active el constructormode se actualizen con un triggerstay para que si ya estas dentro de un radio de un objecto que podria ser suseptible a moverlo pues se active, y no hasta el entrar salir del triggerenter, y que si tienes algo pickeado no puedas salir del construction mode para evitar errores y cosas raras. COMPLETADO
 
-	-Hacer que cuando el jugador haga interaccion con la cama se desactive el control del jugador, se haga una courutine que haga que el tiempo pase rapido poniendose oscuro y un texto aparezca en pantalla indicando que el dia 1 acabo y pase al dia 2. EN CURSO
+	-Hacer un sistame igualito al pickeableobjectbehaviour pero que sea para usar objectos, en este caso no se cambiara el material sino que solo se modificara un poco para que se sepa que item se esta seleccionando a la hora de interactuar, y asi usar objetos como la cama u otros objetos. EN CURSO
+
+	-Hacer que cuando el jugador haga interaccion con la cama se desactive el control del jugador, se haga una courutine que haga que el tiempo pase rapido poniendose oscuro y un texto aparezca en pantalla indicando que el dia 1 acabo y pase al dia 2. PENDIENTE
+
+	-Hacer un script que 
 
 	-Conectar el sistema de guardado para que cuando se haga el paso de dia se guarde todo. PENDIENTE
 
 Necesitamos hacer el sistema donde el jugador coseche sus cultivos y los guarde en un inventario o algo.
-	Ya con el sistema del paso de dia simplemente hacer que el cultivo detecte que si paso el dia pase a una transicion
-	de cultivo mas crecido, hacer la variable adentro de cada cultivo, y solo hacer que si el cultivo esta por encima
-	de una cierta cantidad de dias, el cultivo pase a su siguente fase, hacer la actualizacion de todo lo que necesite
-	una actualizacion por dia y cuando todo este actualizado guardar el juego. PENDIENTE
-
-Necesitamos hacer el sistema para meter los cultivos y items en general en un cajon para que se vendan.
-	El almacenamiento literalmente sera invocar una dimension para guardar cosas, igual luego para hacer alguna especie
-	de progresion hacer que se tenga que obtener de alguna manera esta dimension, como obtener mas y hacerlas mas 
-	grandes, el funcionamiento sera invocar un agujero donde se puede aventar los items, y cuando entren
-	automaticamente ocupara un lugar del inventario, y dentro del almacen simplemente agarrar los items, aventarlos a
-	la puerta y asi cuando salgas ya todo lo que aventaste afuera estara ahi. PENDIENTE
+	Ya con el sistema del paso de dia simplemente hacer que el cultivo detecte que si paso el dia pase a una transicion de cultivo mas crecido, hacer la variable adentro de cada cultivo, y solo hacer que si el cultivo esta por encima de una cierta cantidad de dias, el cultivo pase a su siguente fase, hacer la actualizacion de todo lo que necesite una actualizacion por dia y cuando todo este actualizado guardar el juego. PENDIENTE
 
 Necesitamos hacer el sistema de dinero.
-	Que de momento este entre el boton de configuracion y los botones de accion y que tenga una entrada facil para que
-	se pueda modificar el dinero cuando el jugador venda cosas o compre cosas, una animacion de dinero mas(verde) o 
-	dinero menos(rojo) y que cuando termine la anicamacion se haga una animacioncita como de cronometro, que en un 
-	tiempo se recorra del numero total anterior al numero total resultante despues de la compra o venta. PENDIENTE
+	Que de momento este entre el boton de configuracion y los botones de accion y que tenga una entrada facil para que se pueda modificar el dinero cuando el jugador venda cosas o compre cosas, una animacion de dinero mas(verde) o dinero menos(rojo) y que cuando termine la anicamacion se haga una animacioncita como de cronometro, que en un tiempo se recorra del numero total anterior al numero total resultante despues de la compra o venta. PENDIENTE
 
-Necesitamos hacer el sistema de entrar a otras localizaciones, como casas, arboles o dimensiones.
-	Para hacer esto empezaremos con la casa principal que se pueda interactuar con la puerta y asi nos envie al 
-	interior de la casa, que de momento solo sera un espacio negro vacio, un plano para caminar, paredes invisibles
-	para que no te caigas por los extremos, un recuadro que no tenga pared invisible que represente la puerta de
-	salida y que si caminas hacia alla llegando a un limite automaticamente te saque, adentro un cubo que sera la cama
-	y que con el boton de interaccion pueda darle a la cama para dormir y ahora si pasar el dia. PENDIENTE
+Nececsitamos hacer el sistema de tienda
+	Esta es la parte mas importante antes de 
