@@ -20,6 +20,7 @@ public class GameSystem : MonoBehaviour
     public static Material highlightedMaterial;
     public static Material highlightedWrongMaterial;
     public static GameObject highlightedObject;
+    public static GameObject highlightedUsableObject;
     public static GameObject pickedUpObject;
     public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tenga un default
     public static GameObject cameraOrbit;
@@ -31,11 +32,17 @@ public class GameSystem : MonoBehaviour
     {
         if(constructionModeActivated == false)
         {
+            foreach (GameObject obj in usableObjects)
+            {
+                obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected = false;
+                obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
+            }
+            usableObjects = new List<GameObject>();
             constructionModeActivated = true;
         }
         else 
         {
-            if(!pickedUpObject && !pickedUpParentObject)
+            if (!pickedUpObject && !pickedUpParentObject)
             {
                 constructionModeActivated = false;
                 if (highlightedObject)
@@ -43,6 +50,7 @@ public class GameSystem : MonoBehaviour
                     highlightedObject.GetComponent<MeshRenderer>().material = highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
                     pickeableObjects = new List<GameObject>();
                     highlightedObject = null;
+                    
                 }
             }
         }
@@ -210,18 +218,18 @@ public class GameSystem : MonoBehaviour
             {
                 highlightedObject.transform.parent.gameObject.transform.SetParent(player.transform);
                 highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = false;
-                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggerStaySwitch = false;
+                highlightedObject.GetComponent<MeshCollider>().enabled = false;
                 pickeableObjects.RemoveAll(x => x == highlightedObject);
                 pickedUpParentObject = highlightedObject.transform.parent.gameObject;
                 pickedUpObject = highlightedObject;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+                pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
                 highlightedObject = null;
             }
             else
             {
                 highlightedObject.transform.SetParent(player.transform);
                 highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = false;
-                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggerStaySwitch = false;
                 pickeableObjects.RemoveAll(x => x == highlightedObject);
                 pickedUpObject = highlightedObject;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
@@ -238,6 +246,7 @@ public class GameSystem : MonoBehaviour
             pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = true;
             pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
+            pickedUpObject.GetComponent<MeshCollider>().enabled = true;
             pickedUpParentObject = null;
             pickedUpObject = null;
         }
@@ -253,52 +262,98 @@ public class GameSystem : MonoBehaviour
 
     public static void HighlightPickeableObject()
     {
-        if (pickeableObjects.Count > 0 && !pickedUpObject)
+        if (constructionModeActivated)
         {
-            highlightedObject = null;
-            float minDistance = float.MaxValue;
-
-            foreach (GameObject obj in pickeableObjects)
+            if (pickeableObjects.Count > 0 && !pickedUpObject)
             {
-                if (obj == null) continue;
+                highlightedObject = null;
+                float minDistance = float.MaxValue;
 
-                float distance = Vector3.Distance(
-                    player.transform.position,
-                    obj.transform.position
-                );
-
-                if (distance < minDistance)
+                foreach (GameObject obj in pickeableObjects)
                 {
-                    minDistance = distance;
-                    highlightedObject = obj;
+                    if (obj == null) continue;
+
+                    float distance = Vector3.Distance(
+                        player.transform.position,
+                        obj.transform.position
+                    );
+
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        highlightedObject = obj;
+                    }
                 }
+                foreach (GameObject obj in pickeableObjects)
+                {
+                    if (obj.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
+                    {
+                        obj.GetComponent<MeshRenderer>().material = obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
+                    }
+                }
+                highlightedObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
             }
-            foreach (GameObject obj in pickeableObjects)
+            else if (pickedUpParentObject)
             {
-                if (obj.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
-                {
-                    obj.GetComponent<MeshRenderer>().material = obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
-                }
+                float invertedObjLookAt = (cameraOrbit.transform.Find("Main Camera").transform.position.y - player.transform.position.y);
+                pickedUpParentObject.transform.position = player.transform.position + player.transform.right * -2.0f + new Vector3(0, -invertedObjLookAt + 2.0f, 0);
             }
-            highlightedObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
-        }
-        else if (pickedUpParentObject)
-        {
-            float invertedObjLookAt = (cameraOrbit.transform.Find("Main Camera").transform.position.y - player.transform.position.y);
-            pickedUpParentObject.transform.position = player.transform.position + player.transform.right * -2.0f + new Vector3(0, -invertedObjLookAt + 2.0f, 0);
-        }
-        else if (pickedUpObject)
-        {
-            float invertedObjLookAt = (cameraOrbit.transform.Find("Main Camera").transform.position.y - player.transform.position.y);
-            pickedUpObject.transform.position = player.transform.position + player.transform.right * -2.0f + new Vector3(0, -invertedObjLookAt + 2.0f, 0);
-        }
-        else
-        {
-            highlightedObject = null;
+            else if (pickedUpObject)
+            {
+                float invertedObjLookAt = (cameraOrbit.transform.Find("Main Camera").transform.position.y - player.transform.position.y);
+                pickedUpObject.transform.position = player.transform.position + player.transform.right * -2.0f + new Vector3(0, -invertedObjLookAt + 2.0f, 0);
+            }
+            else
+            {
+                highlightedObject = null;
+            }
         }
     }
 
     #endregion
+
+    #region USABLE OBJECT BEHAVIOUR
+
+    public static void HighlightUsableObject()
+    {
+        if (!constructionModeActivated)
+        {
+            if (usableObjects.Count > 0)
+            {
+                highlightedUsableObject = null;
+                float minDistance = float.MaxValue;
+
+                foreach (GameObject obj in usableObjects)
+                {
+                    if (obj == null) continue;
+
+                    float distance = Vector3.Distance(
+                        player.transform.position,
+                        obj.transform.position
+                    );
+
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        highlightedUsableObject = obj;
+                    }
+                }
+                foreach (GameObject obj in usableObjects)
+                {
+                    if (obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected == true)
+                    {
+                        obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected = false;
+                        obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
+                    }
+                }
+                highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected = true;
+                highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
+            }
+        }
+    }
+
+    #endregion
+
 }
 
 #region Data

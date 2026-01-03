@@ -5,15 +5,40 @@ public class PickObjectBehaviour : MonoBehaviour
 {
     public Material pickeableObjectMaterial;
     public bool onTriggersActivated = true;
-    public bool onTriggerStaySwitch = false;
     public Vector3 scaleModifier = new Vector3(0.5f, 0.5f, 0.5f);
     public Vector3 positionModifier = new Vector3(0, 0, 0);
     public Vector3[] raycastposition = new Vector3[4];
+    public bool isUsableObject = false;
+    public bool isUsableObjectSelected = false;
+    public string objectEffectPath;
 
+    Renderer rend;
+    MaterialPropertyBlock mpb;
 
     private void Start()
     {
+        rend = this.transform.parent.GetComponent<MeshRenderer>();
+        mpb = new MaterialPropertyBlock();
         pickeableObjectMaterial = transform.parent.GetComponent<MeshRenderer>().material;
+    }
+
+    public void ExecuteObjectEffect()
+    {
+        Debug.Log(objectEffectPath + "ObjectEffect");
+        Instantiate(Resources.Load(objectEffectPath + "ObjectEffect"));
+    }
+
+    public void SetHighlightedUsable()
+    {
+        if (isUsableObjectSelected)
+        {
+            mpb.SetColor("_EmissionColor", Color.gray3);
+        }
+        else
+        {
+            mpb.SetColor("_EmissionColor", Color.black);
+        }
+        rend.SetPropertyBlock(mpb);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,6 +69,15 @@ public class PickObjectBehaviour : MonoBehaviour
                 GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedWrongMaterial;
             }
         }
+        else if (!GameSystem.constructionModeActivated && isUsableObject == true)
+        {
+            if (other.gameObject == GameSystem.player && GameSystem.usableObjects.Contains(transform.parent.gameObject))
+            {
+                GameSystem.usableObjects.RemoveAll(x => x == transform.parent.gameObject);
+                mpb.SetColor("_EmissionColor", Color.black);
+                rend.SetPropertyBlock(mpb);
+            }
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -54,10 +88,19 @@ public class PickObjectBehaviour : MonoBehaviour
             {
                 GameSystem.pickeableObjects.Add(transform.parent.gameObject);
             }
-            if(GameSystem.pickedUpObject && other.name != "default" && !onTriggersActivated && other.transform.tag != "Terrain" && onTriggerStaySwitch == false)
+            if (!onTriggersActivated && other.transform.tag == "Terrain")
             {
-                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedWrongMaterial;
-                onTriggerStaySwitch = true;
+                Debug.Log(other.name);
+                Debug.Log(GameSystem.pickedUpObject.transform.parent.name);
+                GameSystem.pickedUpObject.GetComponent<MeshRenderer>().material = GameSystem.highlightedMaterial;
+            }
+            
+        }
+        else if (!GameSystem.constructionModeActivated && isUsableObject == true)
+        {
+            if (other.gameObject == GameSystem.player && !GameSystem.usableObjects.Contains(transform.parent.gameObject))
+            {
+                GameSystem.usableObjects.Add(transform.parent.gameObject);
             }
         }
     }

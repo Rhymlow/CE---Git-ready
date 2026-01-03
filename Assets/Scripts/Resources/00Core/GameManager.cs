@@ -15,16 +15,12 @@ public class GameManager : GameSystem
         InitializeGame();
     }
 
-    private void Start()
-    {
-        
-    }
-
 
     void Update()
     {
         ActivatePlayer();
         HighlightPickeableObject();
+        HighlightUsableObject();
     }
 
 

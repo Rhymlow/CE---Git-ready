@@ -27,8 +27,9 @@ public class B : MonoBehaviour
                 GameSystem.PickUpHighlightedObject();
             }
         }
-        else
+        else if(GameSystem.highlightedUsableObject)
         {
+            GameSystem.highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ExecuteObjectEffect();
         }
             Destroy(this.transform.gameObject);
     }
