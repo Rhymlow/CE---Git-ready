@@ -49,59 +49,62 @@ public class CameraMovement : MonoBehaviour
 
     void OrbitCamera()
     {
-        if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+        if(GameSystem.player.GetComponent<PlayerMovement>().playerMovementActivated == true)
         {
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
-            rotationX += mouseX;
-            rotationY -= mouseY;
-            rotationY = Mathf.Clamp(rotationY, -90f, 90f);
-            GameSystem.cameraOrbit.transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
-        }
-        for (int i = 0; i < Input.touchCount; i++)
-        {
-            Touch touch = Input.GetTouch(i);
-            if (touch.position.x > Screen.width / 2)
+            if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
             {
-                if (touch.phase == TouchPhase.Began)
+                float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+                float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+                rotationX += mouseX;
+                rotationY -= mouseY;
+                rotationY = Mathf.Clamp(rotationY, -90f, 90f);
+                GameSystem.cameraOrbit.transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
+            }
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                Touch touch = Input.GetTouch(i);
+                if (touch.position.x > Screen.width / 2)
                 {
-                    rayo = camera1.ScreenPointToRay(touch.position);
-                    RaycastHit hito;
-                    if (Physics.Raycast(rayo, out hito, Mathf.Infinity, layerMask))
+                    if (touch.phase == TouchPhase.Began)
                     {
-                        isTouchingUI = true;
-                    }
-                    else
-                    {
-                        isTouchingCameraMovement = true;
-                    }
-                }
-                else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-                {
-                    isTouchingCameraMovement = false;
-                    isTouchingUI = false;
-                    GameSystem.ExecuteInputBuffer();
-                    GameSystem.CleanInputBuffer();
-                }
-                if (isTouchingCameraMovement)
-                {
-                    float mouseX = touch.deltaPosition.x * (mouseSensitivity / 6);
-                    float mouseY = touch.deltaPosition.y * (mouseSensitivity / 6);
-                    rotationX += mouseX;
-                    rotationY -= mouseY;
-                    rotationY = Mathf.Clamp(rotationY, -90f, 90f);
-                    GameSystem.cameraOrbit.transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
-                }
-                else if (isTouchingUI)
-                {
-                    ray = camera1.ScreenPointToRay(touch.position);
-                    Debug.DrawRay(ray.origin, ray.direction * 20, Color.yellow);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
-                    {
-                        if (hit.transform.gameObject.GetComponent<SmothRotation>())
+                        rayo = camera1.ScreenPointToRay(touch.position);
+                        RaycastHit hito;
+                        if (Physics.Raycast(rayo, out hito, Mathf.Infinity, layerMask))
                         {
-                            GameSystem.AddInputToBuffer(hit.transform.gameObject.GetComponent<SmothRotation>().buttonID, hit.transform.gameObject);
+                            isTouchingUI = true;
+                        }
+                        else
+                        {
+                            isTouchingCameraMovement = true;
+                        }
+                    }
+                    else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                    {
+                        isTouchingCameraMovement = false;
+                        isTouchingUI = false;
+                        GameSystem.ExecuteInputBuffer();
+                        GameSystem.CleanInputBuffer();
+                    }
+                    if (isTouchingCameraMovement)
+                    {
+                        float mouseX = touch.deltaPosition.x * (mouseSensitivity / 6);
+                        float mouseY = touch.deltaPosition.y * (mouseSensitivity / 6);
+                        rotationX += mouseX;
+                        rotationY -= mouseY;
+                        rotationY = Mathf.Clamp(rotationY, -90f, 90f);
+                        GameSystem.cameraOrbit.transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
+                    }
+                    else if (isTouchingUI)
+                    {
+                        ray = camera1.ScreenPointToRay(touch.position);
+                        Debug.DrawRay(ray.origin, ray.direction * 20, Color.yellow);
+                        RaycastHit hit;
+                        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+                        {
+                            if (hit.transform.gameObject.GetComponent<SmothRotation>())
+                            {
+                                GameSystem.AddInputToBuffer(hit.transform.gameObject.GetComponent<SmothRotation>().buttonID, hit.transform.gameObject);
+                            }
                         }
                     }
                 }

@@ -41,43 +41,11 @@ public class PlayerMovement : GameSystem
 
     void PlayerMovementFunction()
     {
-        if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
-        { }
-        if (Input.touchCount == 0)
+        if (playerMovementActivated)
         {
-            float forwardSpeed = ConvertTouchToAxis(0f, 0f) * speed;
-            float sideSpeed = ConvertTouchToAxis(0f, 0f) * speed;
-            Vector3 speedVector = new Vector3(sideSpeed, 0, forwardSpeed);
-            speedVector = cameraRotation.rotation * speedVector;
-            speedVector.y = playerVelocity.y;
-            controller.Move(speedVector * Time.deltaTime);
-        }
-        for (int i = 0; i < Input.touchCount; i++)
-        {
-            Touch touch = Input.GetTouch(i);
-            if (touch.position.x < Screen.width / 2)
-            {
-                float forwardSpeed = ConvertTouchToAxis(touch.position.y, initialTouchPosition.y) * speed;
-                float sideSpeed = ConvertTouchToAxis(touch.position.x, initialTouchPosition.x) * speed;
-                Vector3 speedVector = new Vector3(sideSpeed, 0, forwardSpeed);
-                speedVector = cameraRotation.rotation * speedVector;
-                speedVector.y = playerVelocity.y;
-                controller.Move(speedVector * Time.deltaTime);
-                ChangeAnimSelector(1);
-                animationSelectorLock = false;
-                thisGO.transform.eulerAngles = new Vector3(0.0f, 90.0f + frontConstant, 0.0f);
-                if (touch.phase == TouchPhase.Began && isJoysticActive == false)
-                {
-                    isJoysticActive = true;
-                    initialTouchPosition = touch.position;
-                }
-
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    isJoysticActive = false;
-                }
-            }
-            else
+            if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+            { }
+            if (Input.touchCount == 0)
             {
                 float forwardSpeed = ConvertTouchToAxis(0f, 0f) * speed;
                 float sideSpeed = ConvertTouchToAxis(0f, 0f) * speed;
@@ -85,6 +53,41 @@ public class PlayerMovement : GameSystem
                 speedVector = cameraRotation.rotation * speedVector;
                 speedVector.y = playerVelocity.y;
                 controller.Move(speedVector * Time.deltaTime);
+            }
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                Touch touch = Input.GetTouch(i);
+                if (touch.position.x < Screen.width / 2)
+                {
+                    float forwardSpeed = ConvertTouchToAxis(touch.position.y, initialTouchPosition.y) * speed;
+                    float sideSpeed = ConvertTouchToAxis(touch.position.x, initialTouchPosition.x) * speed;
+                    Vector3 speedVector = new Vector3(sideSpeed, 0, forwardSpeed);
+                    speedVector = cameraRotation.rotation * speedVector;
+                    speedVector.y = playerVelocity.y;
+                    controller.Move(speedVector * Time.deltaTime);
+                    ChangeAnimSelector(1);
+                    animationSelectorLock = false;
+                    thisGO.transform.eulerAngles = new Vector3(0.0f, 90.0f + frontConstant, 0.0f);
+                    if (touch.phase == TouchPhase.Began && isJoysticActive == false)
+                    {
+                        isJoysticActive = true;
+                        initialTouchPosition = touch.position;
+                    }
+
+                    if (touch.phase == TouchPhase.Ended)
+                    {
+                        isJoysticActive = false;
+                    }
+                }
+                else
+                {
+                    float forwardSpeed = ConvertTouchToAxis(0f, 0f) * speed;
+                    float sideSpeed = ConvertTouchToAxis(0f, 0f) * speed;
+                    Vector3 speedVector = new Vector3(sideSpeed, 0, forwardSpeed);
+                    speedVector = cameraRotation.rotation * speedVector;
+                    speedVector.y = playerVelocity.y;
+                    controller.Move(speedVector * Time.deltaTime);
+                }
             }
         }
         #region Animations

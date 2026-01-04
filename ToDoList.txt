@@ -12,9 +12,9 @@ Necesitamos hacer el sistema de pasar dias para que el jugador pueda ver el resu
 
 	-Hacer un sistame igualito al pickeableobjectbehaviour pero que sea para usar objectos, en este caso no se cambiara el material sino que solo se modificara un poco para que se sepa que item se esta seleccionando a la hora de interactuar, y asi usar objetos como la cama u otros objetos. COMPLETADO
 
-	-Hacer que cuando el jugador haga interaccion con la cama se desactive el control del jugador, se haga una courutine que haga que el tiempo pase rapido poniendose oscuro y un texto aparezca en pantalla indicando que el dia 1 acabo y pase al dia 2. PENDIENTE
+	-Hacer que cuando el jugador haga interaccion con la cama se desactive el control del jugador, se haga una courutine que haga que el tiempo pase rapido poniendose oscuro y un texto aparezca en pantalla indicando que el dia 1 acabo y pase al dia 2. COMPLETADO
 
-	-Hacer un script que contenga el ejecutar todo lo que pasa en el cambio de dia, al pricipio solo sera actualizar cultivos y luego sera generar maleza para que el jugador pueda limpiar cosas, pero solo sera el script que este situado en la logica del pasar dia de manera conveniente pero de momento no estaran puestos esos efectos. PENDIENTE
+	-Hacer un script que contenga el ejecutar todo lo que pasa en el cambio de dia, al pricipio solo sera actualizar cultivos y luego sera generar maleza para que el jugador pueda limpiar cosas, pero solo sera el script que este situado en la logica del pasar dia de manera conveniente pero de momento no estaran puestos esos efectos. EN CURSO
 
 	-Conectar el sistema de guardado para que cuando se haga el paso de dia se guarde todo. PENDIENTE
 

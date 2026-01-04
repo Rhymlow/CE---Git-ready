@@ -861,7 +861,7 @@ GameObject:
   - component: {fileID: 446212143050620335}
   - component: {fileID: 1044426707472332981}
   m_Layer: 0
-  m_Name: DayNightCycle (1)
+  m_Name: DayNightCycle1
   m_TagString: System
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -25,6 +25,19 @@ public class GameSystem : MonoBehaviour
     public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tenga un default
     public static GameObject cameraOrbit;
 
+
+    public static void EnablePlayerMovement(bool isPlayerMovementEnabled)
+    {
+        if (isPlayerMovementEnabled)
+        {
+            player.GetComponent<PlayerMovement>().playerMovementActivated = true;
+        }
+        else
+        {
+            player.GetComponent<PlayerMovement>().playerMovementActivated = false;
+        }
+    }
+
     #region CONSTRUCTION MODE
 
     public static bool constructionModeActivated;
@@ -348,6 +361,11 @@ public class GameSystem : MonoBehaviour
                 }
                 highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected = true;
                 highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
+            }
+            else
+            {
+                highlightedUsableObject = null;
+                usableObjects.Clear();
             }
         }
     }

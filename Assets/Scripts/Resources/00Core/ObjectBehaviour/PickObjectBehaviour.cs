@@ -10,7 +10,6 @@ public class PickObjectBehaviour : MonoBehaviour
     public Vector3[] raycastposition = new Vector3[4];
     public bool isUsableObject = false;
     public bool isUsableObjectSelected = false;
-    public string objectEffectPath;
 
     Renderer rend;
     MaterialPropertyBlock mpb;
@@ -24,8 +23,7 @@ public class PickObjectBehaviour : MonoBehaviour
 
     public void ExecuteObjectEffect()
     {
-        Debug.Log(objectEffectPath + "ObjectEffect");
-        Instantiate(Resources.Load(objectEffectPath + "ObjectEffect"));
+        Instantiate(Resources.Load(this.transform.parent.transform.parent.GetComponent<PrefabPath>().prefabpath + "ObjectEffect"));
     }
 
     public void SetHighlightedUsable()
@@ -76,6 +74,7 @@ public class PickObjectBehaviour : MonoBehaviour
                 GameSystem.usableObjects.RemoveAll(x => x == transform.parent.gameObject);
                 mpb.SetColor("_EmissionColor", Color.black);
                 rend.SetPropertyBlock(mpb);
+                isUsableObjectSelected = false;
             }
         }
     }
