@@ -10,7 +10,6 @@ public class ObjectEffect10010101 : MonoBehaviour
         StartCoroutine(PassDay(72f, 5f));
     }
 
-
     IEnumerator PassDay(float speed, float duration)
     {
         GameObject sun = GameObject.Find("DayNightCycle");
@@ -28,6 +27,8 @@ public class ObjectEffect10010101 : MonoBehaviour
         GameSystem.EnablePlayerMovement(true);
         sun.transform.eulerAngles = new Vector3(9.0f, 9.81f, 0.0f);
         sun1.transform.eulerAngles = new Vector3(100.0f, 0.0f, 0.0f);
+        GameSystem.SaveGame();
+        Debug.Log(GameSystem.islandDay);
         Destroy(this.transform.gameObject);
     }
 }

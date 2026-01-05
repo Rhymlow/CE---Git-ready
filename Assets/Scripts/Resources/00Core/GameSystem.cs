@@ -26,9 +26,11 @@ public class GameSystem : MonoBehaviour
     public static int islandDay;
     public static GameObject cameraOrbit;
 
+    #region EXPERIMENTAL STUFF
 
     public static void UpdateDay()
     {
+        islandDay++;
     }
 
     public static void EnablePlayerMovement(bool isPlayerMovementEnabled)
@@ -43,9 +45,11 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    #endregion
+
     #region CONSTRUCTION MODE
 
-    public static bool constructionModeActivated;
+    public static bool constructionModeActivated = false;
     public static void ActivateConstructionMode()
     {
         if(constructionModeActivated == false)
@@ -117,26 +121,33 @@ public class GameSystem : MonoBehaviour
         filteredRoots = new List<GameObject>();
     }
 
-    public static void LoadGame()
+    public static bool LoadGame()
     {
         gameData = SaveSystem.LoadGame();
         if (gameData != null)
         {
-            player.transform.position = new Vector3(gameData.playerData.playerSpawnPoint.x, gameData.playerData.playerSpawnPoint.y + 40, gameData.playerData.playerSpawnPoint.z);
+            #region RESET STATES
             DestroyFilteredRoots();
             pickeableObjects = new List<GameObject>();
             highlightedObject = null;
             pickedUpObject = null;
             pickedUpParentObject = null;
+            #endregion
+            #region LOAD GAME
+            islandDay = gameData.islandData.islandDay;
+            player.transform.position = new Vector3(gameData.playerData.playerSpawnPoint.x, gameData.playerData.playerSpawnPoint.y + 40, gameData.playerData.playerSpawnPoint.z);
             foreach (MyGameObject obj in gameData.islandData.SavedGameObjects)
             {
                 Instantiate(Resources.Load(obj.prefabPath) as GameObject, new Vector3(obj.position.x, obj.position.y, obj.position.z), new Quaternion(obj.rotation.x, obj.rotation.y, obj.rotation.z, obj.rotation.w));
             }
+            #endregion
             Debug.Log("Game Loaded");
+            return true;
         }
         else
         {
             Debug.Log("No se pudo cargar el archivo");
+            return false;
         }
     }
 

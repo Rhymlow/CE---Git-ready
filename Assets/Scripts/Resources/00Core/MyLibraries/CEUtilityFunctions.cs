@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace CEutilities
 {
+    /// <summary>
+    /// GameData store GameID, PlayerData and IslandData.
+    /// </summary>
     [System.Serializable]
     public class GameData
     {
@@ -32,6 +35,9 @@ namespace CEutilities
         }
     }
 
+    /// <summary>
+    /// IslandData store islandDay and all the GameObjects in the scene that can be saved.
+    /// </summary>
     [System.Serializable]
     public class IslandData
     {
@@ -63,6 +69,9 @@ namespace CEutilities
         }
     }
 
+    /// <summary>
+    /// PlayerData right now only can store playerSpawnPoint.
+    /// </summary>
     [System.Serializable]
     public class PlayerData
     {
@@ -77,8 +86,16 @@ namespace CEutilities
         {
             playerSpawnPoint = tPlayerSpawnPoint;
         }
+
+        public PlayerData(PlayerData playerData)
+        {
+            playerSpawnPoint = playerData.playerSpawnPoint;
+        }
     }
 
+    /// <summary>
+    /// MyVector3 works exactly like Vector3 but to can be saved.
+    /// </summary>
     [System.Serializable]
     public class MyVector3
     {
@@ -101,6 +118,9 @@ namespace CEutilities
         }
     }
 
+    /// <summary>
+    /// MyQuaternion works exactly like Quaternion but to can be saved.
+    /// </summary>
     [System.Serializable]
     public class MyQuaternion
     {
@@ -125,7 +145,10 @@ namespace CEutilities
             w = quaternion.w;
         }
     }
-
+    
+    /// <summary>
+    /// MyGameObject right now only can store the prefabPath, position and rotation(Quaternion).
+    /// </summary>
     [System.Serializable]
     public class MyGameObject
     {

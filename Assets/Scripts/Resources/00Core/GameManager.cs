@@ -6,8 +6,6 @@ public class GameManager : GameSystem
 
     public string[] inputBuffer = { "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z" };
     public int validationBuffer = 0;
-    float timer = 0;
-    bool playerActivated = false;
 
 
     private void Awake()
@@ -18,7 +16,6 @@ public class GameManager : GameSystem
 
     void Update()
     {
-        ActivatePlayer();
         HighlightPickeableObject();
         HighlightUsableObject();
     }
@@ -26,7 +23,7 @@ public class GameManager : GameSystem
 
     void InitializeGame()
     {
-        #region INITIALIZE AUDIOCLIPS
+        #region INITIALIZE GAMESYSTEM
         for (int i = 0; i < spellBells.Length - 2; i++)
         {
             int z = i + 1;
@@ -34,31 +31,23 @@ public class GameManager : GameSystem
         }
         spellBells[15] = Resources.Load("00/Music/SpellBellSuccess") as AudioClip;
         spellBells[16] = Resources.Load("00/Music/SpellBellError") as AudioClip;
-        #endregion
-        FillFilteredRoots();
-        gameID = "Game_1";
         cameraOrbit = GameObject.Find("Camera Orbit");
         highlightedMaterial = Resources.Load("Materials/HighlightGameObject") as Material;
         highlightedWrongMaterial = Resources.Load("Materials/HighlightWrongObject") as Material;
         soundEffectUI = cameraOrbit.GetComponent<AudioSource>();
         player = GameObject.Find("Player");
+        gameID = "Game_1";
         gameManager = this;
-        SendMessageToDiscord("c/dar 1 rhymlow");
-        Instantiate(Resources.Load("10/01/01/03") as GameObject);
-        Instantiate(Resources.Load("10/01/01/01") as GameObject);
-        constructionModeActivated = false;
-    }
-
-
-    void ActivatePlayer()
-    {
-        timer += Time.deltaTime;
-        if(timer > 3.0f && playerActivated == false)
+        #endregion
+        if (!LoadGame())
         {
-            player.SetActive(true);
-            playerActivated = true;
-            Debug.Log("El jugador fue activado");
+            #region CREATE A NEW GAME
+            islandDay = 1;
+            Instantiate(Resources.Load("10/01/01/03") as GameObject);
+            Instantiate(Resources.Load("10/01/01/01") as GameObject);
+            #endregion
         }
+        SendMessageToDiscord("c/dar 1 rhymlow");
     }
 
 
