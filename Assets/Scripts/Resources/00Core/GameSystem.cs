@@ -23,8 +23,13 @@ public class GameSystem : MonoBehaviour
     public static GameObject highlightedUsableObject;
     public static GameObject pickedUpObject;
     public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tenga un default
+    public static int islandDay;
     public static GameObject cameraOrbit;
 
+
+    public static void UpdateDay()
+    {
+    }
 
     public static void EnablePlayerMovement(bool isPlayerMovementEnabled)
     {
@@ -108,7 +113,7 @@ public class GameSystem : MonoBehaviour
                 Directory.CreateDirectory(Application.persistentDataPath + "/" + gameID + "/WorldData");
             }
         }
-        SaveSystem.SaveGame(new GameData(gameID,new PlayerData(new MyVector3(player.transform.position)), new IslandData(filteredRoots)));
+        SaveSystem.SaveGame(new GameData(gameID,new PlayerData(new MyVector3(player.transform.position)), new IslandData(islandDay ,filteredRoots)));
         filteredRoots = new List<GameObject>();
     }
 
@@ -136,6 +141,8 @@ public class GameSystem : MonoBehaviour
     }
 
     public static List<GameObject> filteredRoots = new List<GameObject>();
+
+
     public static void FillFilteredRoots()
     {
         GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();

@@ -35,22 +35,31 @@ namespace CEutilities
     [System.Serializable]
     public class IslandData
     {
+        public int islandDay;
         public List<MyGameObject> SavedGameObjects;
 
         public IslandData()
         {
+            islandDay = 1;
             SavedGameObjects = new List<MyGameObject>();
         }
 
-        public IslandData(List<GameObject> tSavedGameObjects)
+        public IslandData(int tIslandDay, List<GameObject> tSavedGameObjects)
         {
+            islandDay = tIslandDay;
             SavedGameObjects = new List<MyGameObject>();
             MyGameObject myGameObject;
-            foreach(GameObject obj in tSavedGameObjects)
+            foreach (GameObject obj in tSavedGameObjects)
             {
                 myGameObject = new MyGameObject(obj);
                 SavedGameObjects.Add(myGameObject);
             }
+        }
+
+        public IslandData(IslandData islandData)
+        {
+            islandDay = islandData.islandDay;
+            SavedGameObjects = islandData.SavedGameObjects;
         }
     }
 

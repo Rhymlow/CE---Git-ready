@@ -24,6 +24,7 @@ public class ObjectEffect10010101 : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+        GameSystem.UpdateDay();
         GameSystem.EnablePlayerMovement(true);
         sun.transform.eulerAngles = new Vector3(9.0f, 9.81f, 0.0f);
         sun1.transform.eulerAngles = new Vector3(100.0f, 0.0f, 0.0f);
