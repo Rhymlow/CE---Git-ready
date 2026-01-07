@@ -10,6 +10,6 @@ public class BRBRBRBG : MonoBehaviour
 
     void CastSpell()
     {
-        
+        GameSystem.DeleteGame();
     }
 }

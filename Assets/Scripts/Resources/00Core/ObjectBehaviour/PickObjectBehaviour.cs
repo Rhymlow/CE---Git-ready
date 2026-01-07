@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class PickObjectBehaviour : MonoBehaviour
 {
-    public Material pickeableObjectMaterial;
-    public bool onTriggersActivated = true;
-    public Vector3 scaleModifier = new Vector3(0.5f, 0.5f, 0.5f);
-    public Vector3 positionModifier = new Vector3(0, 0, 0);
-    public Vector3[] raycastposition = new Vector3[4];
+    public string usableItem = "null";
     public bool isUsableObject = false;
-    public bool isUsableObjectSelected = false;
+    bool onTriggersActivated = true;
+    Material pickeableObjectMaterial;
+    bool isUsableObjectSelected = false;
 
     Renderer rend;
     MaterialPropertyBlock mpb;
@@ -24,6 +22,26 @@ public class PickObjectBehaviour : MonoBehaviour
     public void ExecuteObjectEffect()
     {
         Instantiate(Resources.Load(this.transform.parent.transform.parent.GetComponent<PrefabPath>().prefabpath + "ObjectEffect"));
+    }
+
+    public bool GetIsUsableObjectSelected()
+    {
+        return isUsableObjectSelected;
+    }
+
+    public void SetIsUsableObjectSelected(bool tisUsableObjectSelected)
+    {
+        isUsableObjectSelected = tisUsableObjectSelected;
+    }
+
+    public Material GetPickeableObjectMaterial()
+    {
+        return pickeableObjectMaterial;
+    }
+
+    public void SetOnTriggersActivated(bool tOnTriggersActivated)
+    {
+        onTriggersActivated = tOnTriggersActivated;
     }
 
     public void SetHighlightedUsable()
@@ -95,7 +113,7 @@ public class PickObjectBehaviour : MonoBehaviour
             }
             
         }
-        else if (!GameSystem.constructionModeActivated && isUsableObject == true)
+        else if (!GameSystem.constructionModeActivated && isUsableObject == true && GameSystem.player.GetComponent<PlayerMovement>().itemEquipped == usableItem /*|| u*/)
         {
             if (other.gameObject == GameSystem.player && !GameSystem.usableObjects.Contains(transform.parent.gameObject))
             {

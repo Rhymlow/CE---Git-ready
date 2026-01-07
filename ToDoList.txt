@@ -1,3 +1,17 @@
+Pasos para agregar un modelo nuevo de magicavoxel al juego y que este bien configurado
+	-Ponerlo en el lugar que ira de la carpeta media.
+	-Sacarle el material del prefab del objeto.
+	-Modificar el material para que sea emisivo y este con la intensidad a -10 pero con el color en el blanco mas blanco.
+	-Renombrar al numero que le toca en el guardado de resources.
+	-Poner el prefab en la misma ruta pero de la carpeta resources.
+	-Agregar el script prefabPath y poner la ruta donde estara guardado.
+	-Cambiar el tag del objeto padre a item, o otro que no sea el de los tags ignorados por el sistema de guardado.
+	-Agregar al objeto llamado default que contiene el mesh renderer tambien un mesh collider, para que el objeto tenga colisiones.
+	-Agregar al objeto default como hijo el GameObject llamado PickeableObject.
+	-Configurar el PickeableObject la sphere collider como el collider para que detecte si esta cerca el player y el objeto se illumine si esta en cosntruction mode o 	es suseptible a iluminarse porque es un objeto interactuable.
+	-Configurar el box collider para que encaje exactamente con el area del objeto y se pueda poner donde va cuando lo tienes agarrado.
+	-Marcar como usable object si tiene un efecto o desmarcado si no.
+
 1. Hacer el sistema de guardado.
 
     -Hacer el script de estructura de datos que solo tenga de momento la lista de gameObjects. COMPLETADO
@@ -31,3 +45,17 @@ Necesitamos hacer el sistema de iglesia
 	Esta es la parte mas importante antes de sacar el juego ya que es la monetizacion del juego, en la iglesia puedes clonar objetos y rerrolear la skin del objeto, los objetos en la tienda tendran la skin mas fea posible y en la iglesia los mejoraras, y cuando ya tengas el color que quieres los clonaras para tener varios del mismo y asi tener mucha decoracion para poner tu isla como tu quieres.
 
 Necesitamos hacer el sistema para entrar en la casa y construir edificaciones utiles.
+
+
+
+	SUEÑOS
+
+	Sacar el juego ya 100% jugable y farmeable para el 13 de enero, simplemente poder plantar, regar, cosechar cultivos, vender por dinero, y comprar muebles para decorar tu isla, tener recolors de muebles y poder recolorear en la iglesia por ver un anuncio, duplicar y poder guardar en la nube.
+	
+	Preparar la generacion de contenido ininterrupida y estrenarla el 20 de enero, sin problemas podria retrasarse hasta el 27 de enero, pero de retrasarse hasta este dia ese dia debe haber un estreno por todo lo alto, este seria el equivalente al lanzamiento del juego, porque los juegos de movil no requieren lanzamiento, requieren una visibilidad de golpe que este bien dirijida, el chiste es preparar tanto contenido y el como se podra integrar este contenido para que la gente se sienta atraida por las actualizaciones, entonces ya preparar todo de tal manera de que si no se llegan a las metas tener contenido facil de hacer, pero que den profundidad y sigan metiendo lore al juego.
+
+	El 3 de Febrero cosechar las estadisticas y empezar a ver cuanto potencialmente puede generar en dinero el juego, ya tendriamos una semana minimo despues del lanzamiento fuerte y empezar a hacer ajustes de como es que podria ser la mejor manera de que se monetize, obviamente empezando por los recolors y duplicar muebles en la iglesia y ya de ahi crear nuevas lineas de negocio, pero empezar por eso, tambien la posibilidad de guardar en la nube a cambio de ver un anuncio.
+
+	A partir de aqui ya estara el proyecto completo, ahora el objetivo sera 100% hacia como hacer contenido entretenido para youtube que cada video sea un anuncio pero que al mismo tiempo busquemos crecer porque es un juego muy bueno, siempre centrandonos en el lore y dandole muy poca importancia a ser un juego que necesite actualizaciones porque tenga un online que requiera ser calibrado o haya hackers, eso nunca importara, si la gente quiere hacer trampa para hacer islas increiblemente grandes rompiendo el juego da igual, porque lo que queremos es que se involucren en descubrir la historia y eso solo hara que ellos se arruinen el juego a ellos mismos, pero para nada hacer prospecciones hacia hacer un online que requiera que otros jugadores no rompan el juego para que puedan estar juntos, eso solo haria que tuviera demasiado trabajo balanceando y aprendiendo a programar de manera segura, en vez de eso como maximo configurar el que puedas jugar online con amigos y que tu puedas poner como es que quieres que se de el avance entre ustedes, algo tipo ark, donde si se rompe algo da un poco igual porque ya los que hagan los servidores se encargaran de solucionarlo, pero tu nunca enfocarte en el online, siempre en el singleplayer y que el jugador no pierda su progreso si es que necesita actualizar el juego, y todos los dias que se sienta como si estuviera en un evento.
+
+	Hacer que el jugador se sienta todos los dias como si estuviera en un evento, y que pueda descubrirlo viendo los videos y luego jugando o solo jugando, integrar las 2 opciones, lenguaje sin palabras internacional por como maximo lenguaje con emojis.

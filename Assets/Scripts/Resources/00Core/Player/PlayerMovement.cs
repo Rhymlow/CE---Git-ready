@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class PlayerMovement : GameSystem
 {
+    [Header("Item Equipped")]
+    public string itemEquipped;
 
-    Animator anim;
+    
+    [Header("Settings")]
     public int animationSelector;
     bool animationSelectorLock;
+    Animator anim;
     GameObject thisGO;
     public bool playerMovementActivated = false;
     public int haveSomethingEquiped = 0;
@@ -25,6 +29,7 @@ public class PlayerMovement : GameSystem
 
     void Start()
     {
+        itemEquipped = "null";
         thisGO = transform.gameObject;
         anim = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;

@@ -31,6 +31,14 @@ public class GameSystem : MonoBehaviour
     public static void UpdateDay()
     {
         islandDay++;
+        GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (GameObject go in rootObjects)
+        {
+            if (!go.CompareTag("Crop"))
+                continue;
+
+            go.GetComponent<CropBehaviour>().UpdateCrop();
+        }
     }
 
     public static void EnablePlayerMovement(bool isPlayerMovementEnabled)
@@ -56,7 +64,7 @@ public class GameSystem : MonoBehaviour
         {
             foreach (GameObject obj in usableObjects)
             {
-                obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected = false;
+                obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectSelected(false);
                 obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
             }
             usableObjects = new List<GameObject>();
@@ -69,7 +77,7 @@ public class GameSystem : MonoBehaviour
                 constructionModeActivated = false;
                 if (highlightedObject)
                 {
-                    highlightedObject.GetComponent<MeshRenderer>().material = highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
+                    highlightedObject.GetComponent<MeshRenderer>().material = highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetPickeableObjectMaterial();
                     pickeableObjects = new List<GameObject>();
                     highlightedObject = null;
                     
@@ -104,6 +112,14 @@ public class GameSystem : MonoBehaviour
 
     public static string gameID;
     public static GameData gameData;
+
+    public static void DeleteGame()
+    {
+        if (Directory.Exists(Application.persistentDataPath + "/" + gameID))
+        {
+            Directory.Delete(Application.persistentDataPath + "/" + gameID, true);
+        }
+    }
 
     public static void SaveGame()
     {
@@ -248,7 +264,7 @@ public class GameSystem : MonoBehaviour
             if (highlightedObject.transform.parent)
             {
                 highlightedObject.transform.parent.gameObject.transform.SetParent(player.transform);
-                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = false;
+                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(false);
                 highlightedObject.GetComponent<MeshCollider>().enabled = false;
                 pickeableObjects.RemoveAll(x => x == highlightedObject);
                 pickedUpParentObject = highlightedObject.transform.parent.gameObject;
@@ -260,7 +276,7 @@ public class GameSystem : MonoBehaviour
             else
             {
                 highlightedObject.transform.SetParent(player.transform);
-                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = false;
+                highlightedObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(false);
                 pickeableObjects.RemoveAll(x => x == highlightedObject);
                 pickedUpObject = highlightedObject;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
@@ -274,8 +290,8 @@ public class GameSystem : MonoBehaviour
         if (pickedUpObject && pickedUpParentObject && pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
             pickedUpParentObject.transform.SetParent(null);
-            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = true;
-            pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
+            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(true);
+            pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetPickeableObjectMaterial();
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             pickedUpObject.GetComponent<MeshCollider>().enabled = true;
             pickedUpParentObject = null;
@@ -284,8 +300,8 @@ public class GameSystem : MonoBehaviour
         else if(pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
             pickedUpObject.transform.SetParent(null);
-            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().onTriggersActivated = true;
-            pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
+            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(true);
+            pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetPickeableObjectMaterial();
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             pickedUpObject = null;
         }
@@ -319,7 +335,7 @@ public class GameSystem : MonoBehaviour
                 {
                     if (obj.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
                     {
-                        obj.GetComponent<MeshRenderer>().material = obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().pickeableObjectMaterial;
+                        obj.GetComponent<MeshRenderer>().material = obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetPickeableObjectMaterial();
                     }
                 }
                 highlightedObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
@@ -371,13 +387,13 @@ public class GameSystem : MonoBehaviour
                 }
                 foreach (GameObject obj in usableObjects)
                 {
-                    if (obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected == true)
+                    if (obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetIsUsableObjectSelected() == true)
                     {
-                        obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected = false;
+                        obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectSelected(false);
                         obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
                     }
                 }
-                highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().isUsableObjectSelected = true;
+                highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectSelected(true);
                 highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
             }
             else

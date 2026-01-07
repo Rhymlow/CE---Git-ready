@@ -3569,6 +3569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdba69cc95318442ad6f8ed8a278a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemEquipped: 
   animationSelector: 0
   playerMovementActivated: 1
   haveSomethingEquiped: 0

@@ -45,6 +45,8 @@ public class GameManager : GameSystem
             islandDay = 1;
             Instantiate(Resources.Load("10/01/01/03") as GameObject);
             Instantiate(Resources.Load("10/01/01/01") as GameObject);
+            Instantiate(Resources.Load("14/01/01/01") as GameObject);
+            Instantiate(Resources.Load("14/01/02/04") as GameObject);
             #endregion
         }
         SendMessageToDiscord("c/dar 1 rhymlow");
