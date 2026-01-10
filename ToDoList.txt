@@ -32,8 +32,31 @@ Necesitamos hacer el sistema de pasar dias para que el jugador pueda ver el resu
 
 	-Hacer que el juego nada mas empieze carge la partida si es que encuentra algo guardado, si no encuentra nada setee una primera partida con el dia como el dia 1 para empezar a contar los dias, cada que se use la cama que incremente un dia y que haya un apartado en pasar dia que este en el GameSystem donde se guarden todos los efectos que se deben hacer una vez se decida que se pasa de dia, que al principio solo sera el hacer crecer los cultivos lo que deban crecer de a cuerdo a la configuracion de cada cultivo, pero bueno, dejar esa funcion vacia pero que ya se llame cada vez que se pase de dia dejando un debug.log que diga que se paso de dia para saber que cada vez que se use se esta haciendo ese efecto sin faltar. COMPLETADO
 
+OBJETIVO EMERGENTE
+	-Disminuir el tamaño de los objetos exportados de magicavoxel porque son muy pesados para un juego para la playstore. COMPLETADO
+
+
+
+
+
+
+
+
 Necesitamos hacer el sistema donde el jugador coseche sus cultivos y los guarde en un inventario o algo.
 	-Hacer el script generico de cultivo donde estaran las variables de cuantos dias necesita el cultivo para crecer, detectar si esta regado o no, y luego hacer que en la funcion de pasar dia busque todos los objetos en escena que tengan el tag de suseptible a pasar dia, nombre no definitivo, donde si son asi, deben ejecutar su script llamado pasar dia y asi actualizara todo lo que deba ser actualizable de cada item, tambien hacer que el cultivo si necesita ser regado se ilumine como objeto usable y que cuando lo rieges se haga una animacion de regado donde se desactive el movimiento del jugador para ejecutar la animacion de regado, asi haremos gastar tiempo al jugador para que cuando el sistema de tiempo del dia se acabe el jugador solo pueda hacer algunas cosas limitadas por dia. EN CURSO
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Necesitamos hacer el sistema de dinero.
 	Que de momento este entre el boton de configuracion y los botones de accion y que tenga una entrada facil para que se pueda modificar el dinero cuando el jugador venda cosas o compre cosas, una animacion de dinero mas(verde) o dinero menos(rojo) y que cuando termine la anicamacion se haga una animacioncita como de cronometro, que en un tiempo se recorra del numero total anterior al numero total resultante despues de la compra o venta. PENDIENTE

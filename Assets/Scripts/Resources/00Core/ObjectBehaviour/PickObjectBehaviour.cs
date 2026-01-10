@@ -21,7 +21,10 @@ public class PickObjectBehaviour : MonoBehaviour
 
     public void ExecuteObjectEffect()
     {
-        Instantiate(Resources.Load(this.transform.parent.transform.parent.GetComponent<PrefabPath>().prefabpath + "ObjectEffect"));
+        if (Resources.Load(this.transform.parent.transform.parent.GetComponent<PrefabPath>().prefabpath + "ObjectEffect") != null)
+        {
+            Instantiate(Resources.Load(this.transform.parent.transform.parent.GetComponent<PrefabPath>().prefabpath + "ObjectEffect"));
+        }
     }
 
     public bool GetIsUsableObjectSelected()
