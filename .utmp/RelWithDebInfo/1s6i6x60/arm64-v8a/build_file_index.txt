@@ -1,0 +1,2 @@
+C:\Users\yairm\UnityProyects\CE---Update to new Unity\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\yairm\UnityProyects\CE---Update to new Unity\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

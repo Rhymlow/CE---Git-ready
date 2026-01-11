@@ -1,0 +1,5 @@
+C:/Users/yairm/UnityProyects/CE---Update to new Unity/.utmp/RelWithDebInfo/1s6i6x60/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/yairm/UnityProyects/CE---Update to new Unity/.utmp/RelWithDebInfo/1s6i6x60/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/yairm/UnityProyects/CE---Update to new Unity/.utmp/RelWithDebInfo/1s6i6x60/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/yairm/UnityProyects/CE---Update to new Unity/.utmp/RelWithDebInfo/1s6i6x60/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/yairm/UnityProyects/CE---Update to new Unity/.utmp/RelWithDebInfo/1s6i6x60/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
