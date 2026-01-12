@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d7c619cdcae56419f81c0081823c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adUnitId: ca-app-pub-3940256099942544/5224354917
+  RewardedID: ca-app-pub-8645284699994953/4249534524

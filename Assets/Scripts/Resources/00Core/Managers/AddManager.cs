@@ -5,7 +5,8 @@ public class AddManager : MonoBehaviour
 {
     private RewardedAd rewardedAd;
 
-    [SerializeField] private string adUnitId = "ca-app-pub-3940256099942544/5224354917";
+    [SerializeField] private string RewardedID = "ca-app-pub-8645284699994953/4249534524";
+    private string RewardedIDTest = "ca-app-pub-3940256099942544/5224354917";
     
     void Start()
     {
@@ -19,36 +20,72 @@ public class AddManager : MonoBehaviour
 
     public void LoadRewardedAd()
     {
-        AdRequest adRequest = new AdRequest();
-
-        RewardedAd.Load(adUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
+        if (GameSystem.enableTestAd)
         {
-            if (error != null || ad == null)
-            {
-                Debug.LogError("Error al cargar el anuncio: " + error);
-                return;
-            }
+            AdRequest adRequest = new AdRequest();
 
-            rewardedAd = ad;
-
-            // Asigna el callback para cuando el anuncio se cierra
-            rewardedAd.OnAdFullScreenContentClosed += () =>
+            RewardedAd.Load(RewardedIDTest, adRequest, (RewardedAd ad, LoadAdError error) =>
             {
-                Debug.Log("Anuncio cerrado");
-                LoadRewardedAd(); // Opcional: recarga el anuncio automáticamente
-            };
+                if (error != null || ad == null)
+                {
+                    Debug.LogError("Error al cargar el anuncio: " + error);
+                    return;
+                }
 
-            // Recompensa
-            rewardedAd.OnAdPaid += (AdValue adValue) =>
-            {
-                Debug.Log($"Anuncio pagado: {adValue.Value} {adValue.CurrencyCode}");
-            };
+                rewardedAd = ad;
 
-            rewardedAd.OnAdFullScreenContentFailed += (AdError err) =>
+                // Asigna el callback para cuando el anuncio se cierra
+                rewardedAd.OnAdFullScreenContentClosed += () =>
+                {
+                    Debug.Log("Anuncio cerrado");
+                    LoadRewardedAd(); // Opcional: recarga el anuncio automáticamente
+                };
+
+                // Recompensa
+                rewardedAd.OnAdPaid += (AdValue adValue) =>
+                {
+                    Debug.Log($"Anuncio pagado: {adValue.Value} {adValue.CurrencyCode}");
+                };
+
+                rewardedAd.OnAdFullScreenContentFailed += (AdError err) =>
+                {
+                    Debug.LogError("Error al mostrar el anuncio: " + err);
+                };
+            });
+        }
+        else
+        {
+            AdRequest adRequest = new AdRequest();
+
+            RewardedAd.Load(RewardedID, adRequest, (RewardedAd ad, LoadAdError error) =>
             {
-                Debug.LogError("Error al mostrar el anuncio: " + err);
-            };
-        });
+                if (error != null || ad == null)
+                {
+                    Debug.LogError("Error al cargar el anuncio: " + error);
+                    return;
+                }
+
+                rewardedAd = ad;
+
+                // Asigna el callback para cuando el anuncio se cierra
+                rewardedAd.OnAdFullScreenContentClosed += () =>
+                {
+                    Debug.Log("Anuncio cerrado");
+                    LoadRewardedAd(); // Opcional: recarga el anuncio automáticamente
+                };
+
+                // Recompensa
+                rewardedAd.OnAdPaid += (AdValue adValue) =>
+                {
+                    Debug.Log($"Anuncio pagado: {adValue.Value} {adValue.CurrencyCode}");
+                };
+
+                rewardedAd.OnAdFullScreenContentFailed += (AdError err) =>
+                {
+                    Debug.LogError("Error al mostrar el anuncio: " + err);
+                };
+            });
+        }
     }
 
     //Use this function wherever you want to display a rewarded.

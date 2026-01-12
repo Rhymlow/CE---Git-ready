@@ -6,10 +6,11 @@ using CEutilities;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem.LowLevel;
 
 public class GameSystem : MonoBehaviour
 {
-
+    
     public static GameManager gameManager;
     public static AddManager addManager;
     public static GameObject player;
@@ -23,6 +24,7 @@ public class GameSystem : MonoBehaviour
     public static GameObject highlightedUsableObject;
     public static GameObject pickedUpObject;
     public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tenga un default
+    public static bool enableTestAd;
     public static int islandDay;
     public static GameObject cameraOrbit;
 

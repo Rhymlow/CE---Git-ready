@@ -4,6 +4,7 @@ using static GameSystem;
 public class GameManager : GameSystem
 {
 
+    public bool enableTestAds = false;
     public string[] inputBuffer = { "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z" };
     public int validationBuffer = 0;
 
@@ -38,6 +39,7 @@ public class GameManager : GameSystem
         player = GameObject.Find("Player");
         gameID = "Game_1";
         gameManager = this;
+        enableTestAd = enableTestAds;
         #endregion
         if (!LoadGame())
         {

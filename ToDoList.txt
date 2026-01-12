@@ -43,7 +43,7 @@ OBJETIVO EMERGENTE
 
 
 Necesitamos hacer el sistema donde el jugador coseche sus cultivos y los guarde en un inventario o algo.
-	-Hacer el script generico de cultivo donde estaran las variables de cuantos dias necesita el cultivo para crecer, detectar si esta regado o no, y luego hacer que en la funcion de pasar dia busque todos los objetos en escena que tengan el tag de suseptible a pasar dia, nombre no definitivo, donde si son asi, deben ejecutar su script llamado pasar dia y asi actualizara todo lo que deba ser actualizable de cada item, tambien hacer que el cultivo si necesita ser regado se ilumine como objeto usable y que cuando lo rieges se haga una animacion de regado donde se desactive el movimiento del jugador para ejecutar la animacion de regado, asi haremos gastar tiempo al jugador para que cuando el sistema de tiempo del dia se acabe el jugador solo pueda hacer algunas cosas limitadas por dia. EN CURSO
+	-Hacer el script generico de cultivo donde estaran las variables de cuantos dias necesita el cultivo para crecer, detectar si esta regado o no, y luego hacer que en la funcion de pasar dia busque todos los objetos en escena que tengan el tag de suseptible a pasar dia, nombre no definitivo, donde si son asi, deben ejecutar su script llamado pasar dia y asi actualizara todo lo que deba ser actualizable de cada item, tambien hacer que el cultivo si necesita ser regado se ilumine como objeto usable y que cuando lo rieges se haga una animacion de regado donde se desactive el movimiento del jugador para ejecutar la animacion de regado, asi haremos gastar tiempo al jugador para que cuando el sistema de tiempo del dia se acabe el jugador solo pueda hacer algunas cosas limitadas por dia.     EN CURSO
 
 
 
