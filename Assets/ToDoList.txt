@@ -35,14 +35,21 @@ Necesitamos hacer el sistema de pasar dias para que el jugador pueda ver el resu
 OBJETIVO EMERGENTE
 	-Disminuir el tamaño de los objetos exportados de magicavoxel porque son muy pesados para un juego para la playstore. COMPLETADO
 
-
-
-
-
-
-
-
 Necesitamos hacer el sistema donde el jugador coseche sus cultivos y los guarde en un inventario o algo.
+	-Hacer que el script de cropsbehaviour guarde las fases del jitomate en una variable, y cuando se actualize el dia dependiendo de la division el tiempo de las fases del cultivo actualize si es el caso a la siguiente fase, instanciandola y desinstanciando la version anterior. EN CURSO
+
+	-Hacer que el script the pickeablebehaviour detecte si se trata de un crop y de ser el caso que ilumine tanto el material de la tierra como el de la planta, para que no se vea raro en caso de que el pickeable behaviour tenga usos disponibles. PENDIENTE
+
+	-Hacer la funcion donde cambia el cropbehaviour instanciado tierra seca sobre si mismo cada que se actualice el dia para que asi el crop en caso de que no se riegue no avance su crecimiento, poner la tierra seca dentro de la tierra mojada y cuando se riegue simplemente destruir ese instanciado, y cuando tenga la tierra seca integrada con el meshrenderer de la tierra mojada desactivado adaptar tambien ahi el pickeablebehaviour para que interactue correctamente con ese objeto. PENDIENTE
+
+	-Hacer la funcion de riego, donde con una animacion de max donde saca una regadera de la nada y riega lo que tenga enfrente, tan solo apretando el boton de accion azul hace automaticamente la accion. PENDIENTE
+
+	-Hacer la funcion de cosechar donde si el crop ya esta en su ultima fase, con el boton de accion el jugador como que recolecta, y automaticamente el jugador tiene agarrado en su cabeza un saquito de jitomates. PENDIENTE
+
+	-Hacer un sistema de guardado, que se invoque, una especie de estantes que aparecen donde el jugador haga un conjuro, apareciendo de abajo y pudiendo mover el almacen con unas flechitas para poder guardar las cosas ahi, pero de momento sin flechitas y con una cantidad maxima de espacios de 12 espacios, que si te alejas lo suficiente de el desaparezca solito y que con algun boton puedas cerrarlo manualmente. PENDIENTE
+	
+	-Hacer el sistema de poner y quitar cosas del inventario, para que asi ya podamos guardar cosas y tambien asi queden guardadas cada que el jugador guarde el juego. PENDIENTE
+	
 	-Hacer el script generico de cultivo donde estaran las variables de cuantos dias necesita el cultivo para crecer, detectar si esta regado o no, y luego hacer que en la funcion de pasar dia busque todos los objetos en escena que tengan el tag de suseptible a pasar dia, nombre no definitivo, donde si son asi, deben ejecutar su script llamado pasar dia y asi actualizara todo lo que deba ser actualizable de cada item, tambien hacer que el cultivo si necesita ser regado se ilumine como objeto usable y que cuando lo rieges se haga una animacion de regado donde se desactive el movimiento del jugador para ejecutar la animacion de regado, asi haremos gastar tiempo al jugador para que cuando el sistema de tiempo del dia se acabe el jugador solo pueda hacer algunas cosas limitadas por dia.     EN CURSO
 
 
