@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 1a559e431bbaa2146ab89a6f27436bb2
+guid: 59879d83d5987734f85b75a5f698b6e2
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: palette
+    second: {fileID: 2100000, guid: 6ce41bb3d2de8924797343afe31190d0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -56,6 +61,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8

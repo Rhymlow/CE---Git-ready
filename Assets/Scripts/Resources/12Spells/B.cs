@@ -21,7 +21,14 @@ public class B : MonoBehaviour
                 GameSystem.PickUpHighlightedObject();
             }
         }
-        else if(GameSystem.highlightedUsableObject)
+        else if (GameSystem.isAnItemPickedUp)
+        {
+            if (GameSystem.pickedUpObject)
+            {
+                GameSystem.PlacePrefabOfUsableItem();
+            }
+        }
+        else if (GameSystem.highlightedUsableObject)
         {
             GameSystem.highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().ExecuteObjectEffect();
         }

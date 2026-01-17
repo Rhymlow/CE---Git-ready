@@ -19,6 +19,7 @@ public class GameManager : GameSystem
     {
         HighlightPickeableObject();
         HighlightUsableObject();
+        Debug.Log(constructionModeActivated);
     }
 
 
@@ -40,6 +41,7 @@ public class GameManager : GameSystem
         gameID = "Game_1";
         gameManager = this;
         enableTestAd = enableTestAds;
+        isAnItemPickedUp = false;
         #endregion
         if (!LoadGame())
         {

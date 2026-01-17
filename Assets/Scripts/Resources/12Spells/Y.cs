@@ -16,7 +16,15 @@ public class Y : MonoBehaviour
 
     void EffectTest()
     {
-        GameSystem.ActivateConstructionMode();
-        Destroy(this.transform.gameObject);
+        if (!GameSystem.isAnItemPickedUp)
+        {
+            GameSystem.ActivateConstructionMode();
+            Destroy(this.transform.gameObject);
+        }
+        else
+        {
+            GameSystem.UnequipItem();
+            Destroy(this.transform.gameObject);
+        }
     }
 }

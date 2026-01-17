@@ -36,9 +36,11 @@ OBJETIVO EMERGENTE
 	-Disminuir el tamaño de los objetos exportados de magicavoxel porque son muy pesados para un juego para la playstore. COMPLETADO
 
 Necesitamos hacer el sistema donde el jugador coseche sus cultivos y los guarde en un inventario o algo.
-	-Hacer que el script de cropsbehaviour guarde las fases del jitomate en una variable, y cuando se actualize el dia dependiendo de la division el tiempo de las fases del cultivo actualize si es el caso a la siguiente fase, instanciandola y desinstanciando la version anterior. EN CURSO
+	
+	-Hacer que max tenga el palo de arar y hacer que donde ponga el arado se genere estas piedritas con tierra que te permitiran plantar lo que quieras, que tengas el palo de arrar seleccionado como tendras seleccionado despues las semillas y simplemente que te permita poner el arado donde gustas como si tuvieras agarrada la tierra para poner.
+	
+	-Hacer que el script de cropsbehaviour guarde las fases del jitomate en una variable, y cuando se actualize el dia dependiendo de la division el tiempo de las fases del cultivo actualize si es el caso a la siguiente fase, instanciandola y desinstanciando la version anterior, hacer que el cropbehaviour este atado a la primera fase del crop en cuestios y que sea como una lista linkeada, osea que tenga las variables para pregruntar si debe pasar de fase y que si es la numero 2 pues tenga la numero 3 detro de el, y si es la 3 tenga la numero 4 dentro de el, entonces si actualiza mandar a crear la que sigue, y que la tierra tenga algo diferente al crop behaviour porque es una cosa base, entonces que solo tenga el linkeado a la primera fase, cuando se actualice porque siempre se actualizaria llama a la primera fase de cualquier planta y entonces empieza el proceso. EN CURSO
 
-	-Hacer que el script the pickeablebehaviour detecte si se trata de un crop y de ser el caso que ilumine tanto el material de la tierra como el de la planta, para que no se vea raro en caso de que el pickeable behaviour tenga usos disponibles. PENDIENTE
 
 	-Hacer la funcion donde cambia el cropbehaviour instanciado tierra seca sobre si mismo cada que se actualice el dia para que asi el crop en caso de que no se riegue no avance su crecimiento, poner la tierra seca dentro de la tierra mojada y cuando se riegue simplemente destruir ese instanciado, y cuando tenga la tierra seca integrada con el meshrenderer de la tierra mojada desactivado adaptar tambien ahi el pickeablebehaviour para que interactue correctamente con ese objeto. PENDIENTE
 
@@ -89,3 +91,74 @@ Necesitamos hacer el sistema para entrar en la casa y construir edificaciones ut
 	A partir de aqui ya estara el proyecto completo, ahora el objetivo sera 100% hacia como hacer contenido entretenido para youtube que cada video sea un anuncio pero que al mismo tiempo busquemos crecer porque es un juego muy bueno, siempre centrandonos en el lore y dandole muy poca importancia a ser un juego que necesite actualizaciones porque tenga un online que requiera ser calibrado o haya hackers, eso nunca importara, si la gente quiere hacer trampa para hacer islas increiblemente grandes rompiendo el juego da igual, porque lo que queremos es que se involucren en descubrir la historia y eso solo hara que ellos se arruinen el juego a ellos mismos, pero para nada hacer prospecciones hacia hacer un online que requiera que otros jugadores no rompan el juego para que puedan estar juntos, eso solo haria que tuviera demasiado trabajo balanceando y aprendiendo a programar de manera segura, en vez de eso como maximo configurar el que puedas jugar online con amigos y que tu puedas poner como es que quieres que se de el avance entre ustedes, algo tipo ark, donde si se rompe algo da un poco igual porque ya los que hagan los servidores se encargaran de solucionarlo, pero tu nunca enfocarte en el online, siempre en el singleplayer y que el jugador no pierda su progreso si es que necesita actualizar el juego, y todos los dias que se sienta como si estuviera en un evento.
 
 	Hacer que el jugador se sienta todos los dias como si estuviera en un evento, y que pueda descubrirlo viendo los videos y luego jugando o solo jugando, integrar las 2 opciones, lenguaje sin palabras internacional por como maximo lenguaje con emojis.
+
+
+
+
+
+	------------------------- COMO SE MANTENDRA VIGENTE COUNTER ELEMENTS -------------------------
+	
+	SISTEMA DE CULTIVOS INCREMENTAL (Para retener al jugador)
+
+	DIMENSION OSCURA DE LORE (Para hacer publicidad, atrayendo jugadores mediente videos de youtube)
+
+	PASE DE BATALLA/TIENDA DE OBJETOS QUE SE ACTUALIZARA DIARIO (Para poder monetizar, una vez que atajiste y retuviste jugadores ahora sacar ganancia)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	---- UPCOMMING ----
+
+	AÑADIR SISTEMAS INCREMENTALES TIPICOS DE STARDEW VALLEY / ANIMAL CROSSING
+
+	-Centro civico
+
+	-Museo de piedras
+
+	-Amistad con Aldeanos
+
+	-Los pisos de la caverna
+
+	UNA VEZ ESTE MUY AVANZADO EL JUEGO, AÑADIR SISTEMAS QUE HAGAN INCREIBLE EL JUEGO, 
+
+	-Generacion del mundo procedural, primero puede ser por islas pero luego sera una generacion tipo miencraft super compleja, que se pueda ver muy lejos hacia el horizonte y que encima sea optimo, de manera que sea increible y se pueda ver en celular, con montañas gigantescas y biomas fantasticos.
+
+	-Sistema de facciones, los pueblos, zonas o islas tienen un sistema donde el crecimiento o la ocurrencia de eventos por zonas determinadas se calculan por los dias pasados, creando tramas de cosas que pueden pasar por probabilidad y que poco a poco van cambiando la zona a donde vayas, habiendo guerras entre pueblos, naciones y nacimiento y caida de imperios.
+
+	-Sistema de hablar con npc conectado al sistema de facciones, los aldeanos pueden hablar contigo pero usarian un sistema de señas pero no de manos sino de cuerpo, asi tendriamos un lenguaje universal que pareceria como el juego de señas y gestos pero invariable, osea que las señas siempre significarian lo mismo, asi en cualquier pais se entenderia este lenguaje.
+
+	-Sistema de batalla, el core del juego, un sistema de batalla basado en ejecutar hechizos que counteren otros, pueden counterear de manera simple que seria simplemente contrarestar el ataque enemigo o de manera compleja, que seria gastar la minima cantidad de mana para nulificar el ataque enemigo y aparte generar efectos donde te sirva a ti para ejecutar hechizos mas poderosos con el resultado del hechizo de defensa que hiciste, nunca siendo una cuestion de reflejos, sino de elejir el mejor hechizo para cada situacion, generaran un circulo magico que dependiendo del tipo sera de un color y forma externa como circulo, cuadrado, triangulo, rombo, pentagono y mas formas geometricas simples que indicaran el elemento del hechizo, y luego las formas internas del circulo magico indicaran cosas especificas del hechizo, como si es un proyectil, el tamaño y demas cosas especificas para que el jugador aunque no conozca el hechizo pueda tomar decisiones para hacer medio counter basado en esa informacion, y el tamaño del hechizo se basara en su distancia de efecto, de esa manera si un jugador esta a un kilometro de distancia pero aparace un circulo de hechizo visible a esa distancia, significara que sera un meteorito o un terremoto o cualquier cosa que a esa distancia si pueda impactar a la persona que lo esta mirando, asi que si a esa distancia no pudiras ver el circulo significa que no podra darte, los 2 tipos de counter importantes seran ataque melee, penetrante, a distancia etc. y por elementos, de agua, fuego etc.
+
+	-Sistema de progresion variados, donde podras volverte el mejor aprendiendo un monton de hechizos, o sobre el mismo tipo de hechizos aprendiendo muy poco, o sin aprender hechizos y solo cultivando y creando artefactos magicos, el chiste es que haya un modo de juego para cada persona pero que se sienta integrado en el mundo.
+
+	-Hacer el sistema de avanzar por islas.
+

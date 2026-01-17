@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : GameSystem
 {
     [Header("Item Equipped")]
-    public string itemEquipped;
+    public string nameItemEquipped;
 
     
     [Header("Settings")]
@@ -29,7 +29,7 @@ public class PlayerMovement : GameSystem
 
     void Start()
     {
-        itemEquipped = "null";
+        nameItemEquipped = "null";
         thisGO = transform.gameObject;
         anim = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;

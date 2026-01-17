@@ -24,6 +24,8 @@ public class GameSystem : MonoBehaviour
     public static GameObject highlightedUsableObject;
     public static GameObject pickedUpObject;
     public static GameObject pickedUpParentObject; // este debe de llenarse si se trata de un objeto que tenga un default
+    public static bool isAnItemPickedUp;
+    public static GameObject itemEquipped;
     public static bool enableTestAd;
     public static int islandDay;
     public static GameObject cameraOrbit;
@@ -57,6 +59,36 @@ public class GameSystem : MonoBehaviour
 
     #endregion
 
+    public static void UnequipItem()
+    {
+        itemEquipped.transform.SetParent(null);
+        itemEquipped.GetComponent<Rigidbody>().isKinematic = false;
+        isAnItemPickedUp = false;
+        Destroy(pickedUpObject);
+        pickedUpParentObject = null;
+        pickedUpObject = null;
+        itemEquipped.transform.Find("default").transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(true);
+        itemEquipped = null;
+        
+        
+    }
+
+    public static void PlacePrefabOfUsableItem()
+    {
+        if (pickedUpObject && pickedUpParentObject && pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
+        {
+            pickedUpParentObject.transform.SetParent(null);
+            pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(true);
+            pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetPickeableObjectMaterial();
+            pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
+            pickedUpObject.GetComponent<MeshCollider>().enabled = true;
+            GameObject tGO = Instantiate(Resources.Load(pickedUpParentObject.GetComponent<PrefabPath>().prefabpath) as GameObject);
+            pickedUpParentObject = tGO;
+            pickedUpObject = tGO.transform.GetChild(0).gameObject;
+            pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
+        }
+    }
+
     #region CONSTRUCTION MODE
 
     public static bool constructionModeActivated = false;
@@ -72,7 +104,7 @@ public class GameSystem : MonoBehaviour
             usableObjects = new List<GameObject>();
             constructionModeActivated = true;
         }
-        else 
+        else
         {
             if (!pickedUpObject && !pickedUpParentObject)
             {
@@ -356,6 +388,11 @@ public class GameSystem : MonoBehaviour
             {
                 highlightedObject = null;
             }
+        }
+        else if (isAnItemPickedUp)
+        {
+            float invertedObjLookAt = (cameraOrbit.transform.Find("Main Camera").transform.position.y - player.transform.position.y);
+            pickedUpParentObject.transform.position = player.transform.position + player.transform.right * -2.0f + new Vector3(0, -invertedObjLookAt + 2.0f, 0);
         }
     }
 
