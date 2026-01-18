@@ -19,7 +19,6 @@ public class GameManager : GameSystem
     {
         HighlightPickeableObject();
         HighlightUsableObject();
-        Debug.Log(constructionModeActivated);
     }
 
 

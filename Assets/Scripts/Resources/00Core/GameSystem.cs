@@ -57,20 +57,18 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    #endregion
-
     public static void UnequipItem()
     {
         itemEquipped.transform.SetParent(null);
         itemEquipped.GetComponent<Rigidbody>().isKinematic = false;
         isAnItemPickedUp = false;
-        Destroy(pickedUpObject);
+        Destroy(pickedUpParentObject);
         pickedUpParentObject = null;
         pickedUpObject = null;
         itemEquipped.transform.Find("default").transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(true);
         itemEquipped = null;
-        
-        
+
+
     }
 
     public static void PlacePrefabOfUsableItem()
@@ -78,16 +76,21 @@ public class GameSystem : MonoBehaviour
         if (pickedUpObject && pickedUpParentObject && pickedUpObject.GetComponent<MeshRenderer>().sharedMaterial == highlightedMaterial)
         {
             pickedUpParentObject.transform.SetParent(null);
+            pickedUpParentObject.tag = "Crop";
             pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(true);
             pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetPickeableObjectMaterial();
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             pickedUpObject.GetComponent<MeshCollider>().enabled = true;
+            pickedUpObject.transform.Find("PickeableObject").GetComponent<BoxCollider>().size += new Vector3(0,0.5f,0);
             GameObject tGO = Instantiate(Resources.Load(pickedUpParentObject.GetComponent<PrefabPath>().prefabpath) as GameObject);
             pickedUpParentObject = tGO;
+            pickedUpParentObject.tag = "Untagged";
             pickedUpObject = tGO.transform.GetChild(0).gameObject;
             pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
         }
     }
+
+    #endregion
 
     #region CONSTRUCTION MODE
 
@@ -96,6 +99,16 @@ public class GameSystem : MonoBehaviour
     {
         if(constructionModeActivated == false)
         {
+            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+            GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+            foreach (GameObject obj in crops)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+            }
+            foreach (GameObject obj in items)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
+            }
             foreach (GameObject obj in usableObjects)
             {
                 obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectSelected(false);
@@ -106,6 +119,16 @@ public class GameSystem : MonoBehaviour
         }
         else
         {
+            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+            GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+            foreach (GameObject obj in crops)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+            }
+            foreach (GameObject obj in items)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+            }
             if (!pickedUpObject && !pickedUpParentObject)
             {
                 constructionModeActivated = false;
@@ -304,6 +327,7 @@ public class GameSystem : MonoBehaviour
                 pickedUpParentObject = highlightedObject.transform.parent.gameObject;
                 pickedUpObject = highlightedObject;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+                pickedUpObject.transform.Find("PickeableObject").GetComponent<BoxCollider>().size -= new Vector3(0, 0.5f, 0);
                 pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
                 highlightedObject = null;
             }
@@ -328,6 +352,7 @@ public class GameSystem : MonoBehaviour
             pickedUpObject.GetComponent<MeshRenderer>().material = pickedUpObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetPickeableObjectMaterial();
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             pickedUpObject.GetComponent<MeshCollider>().enabled = true;
+            pickedUpObject.transform.Find("PickeableObject").GetComponent<BoxCollider>().size += new Vector3(0, 0.5f, 0);
             pickedUpParentObject = null;
             pickedUpObject = null;
         }

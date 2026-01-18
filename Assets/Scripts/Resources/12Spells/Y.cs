@@ -24,6 +24,16 @@ public class Y : MonoBehaviour
         else
         {
             GameSystem.UnequipItem();
+            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+            GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+            foreach (GameObject obj in crops)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
+            }
+            foreach (GameObject obj in items)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
+            }
             Destroy(this.transform.gameObject);
         }
     }

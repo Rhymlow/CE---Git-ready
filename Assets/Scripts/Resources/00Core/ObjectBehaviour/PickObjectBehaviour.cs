@@ -37,10 +37,21 @@ public class PickObjectBehaviour : MonoBehaviour
             isAnItemPickedUp = true;
             GameObject tGO = Instantiate(Resources.Load(isAnItemInstanciablePath) as GameObject);
             pickedUpParentObject = tGO;
+            pickedUpParentObject.tag = "Untagged";
             pickedUpObject = tGO.transform.GetChild(0).gameObject;
             pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
             pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
             highlightedUsableObject = null;
+            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+            GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+            foreach (GameObject obj in crops)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+            }
+            foreach (GameObject obj in items)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+            }
         }
         else if (Resources.Load(this.transform.parent.transform.parent.GetComponent<PrefabPath>().prefabpath + "ObjectEffect") != null)
         {
@@ -85,7 +96,7 @@ public class PickObjectBehaviour : MonoBehaviour
     {
         if (constructionModeActivated || isAnItemPickedUp)
         {
-            if (pickedUpObject && other.transform.tag == "Terrain")
+            if (pickedUpObject && (other.CompareTag("Terrain") && !other.CompareTag("Crop") && !other.CompareTag("Item")))
             {
                 pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
             }
@@ -104,14 +115,14 @@ public class PickObjectBehaviour : MonoBehaviour
                     transform.parent.GetComponent<MeshRenderer>().material = pickeableObjectMaterial;
                 }
             }
-            if (pickedUpObject && other.transform.tag == "Terrain")
+            if (pickedUpObject && (other.CompareTag("Terrain") && !other.CompareTag("Crop") && !other.CompareTag("Item")))
             {
                 pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
             }
         }
         else if (isAnItemPickedUp)
         {
-            if (pickedUpObject && other.transform.tag == "Terrain")
+            if (pickedUpObject && (other.CompareTag("Terrain") && !other.CompareTag("Crop") && !other.CompareTag("Item")))
             {
                 pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
             }

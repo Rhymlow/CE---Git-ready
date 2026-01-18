@@ -38,6 +38,7 @@ OBJETIVO EMERGENTE
 Necesitamos hacer el sistema donde el jugador coseche sus cultivos y los guarde en un inventario o algo.
 	
 	-Hacer que max tenga el palo de arar y hacer que donde ponga el arado se genere estas piedritas con tierra que te permitiran plantar lo que quieras, que tengas el palo de arrar seleccionado como tendras seleccionado despues las semillas y simplemente que te permita poner el arado donde gustas como si tuvieras agarrada la tierra para poner.
+		COMPLETADO.
 	
 	-Hacer que el script de cropsbehaviour guarde las fases del jitomate en una variable, y cuando se actualize el dia dependiendo de la division el tiempo de las fases del cultivo actualize si es el caso a la siguiente fase, instanciandola y desinstanciando la version anterior, hacer que el cropbehaviour este atado a la primera fase del crop en cuestios y que sea como una lista linkeada, osea que tenga las variables para pregruntar si debe pasar de fase y que si es la numero 2 pues tenga la numero 3 detro de el, y si es la 3 tenga la numero 4 dentro de el, entonces si actualiza mandar a crear la que sigue, y que la tierra tenga algo diferente al crop behaviour porque es una cosa base, entonces que solo tenga el linkeado a la primera fase, cuando se actualice porque siempre se actualizaria llama a la primera fase de cualquier planta y entonces empieza el proceso. EN CURSO
 
@@ -77,6 +78,31 @@ Necesitamos hacer el sistema de iglesia
 	Esta es la parte mas importante antes de sacar el juego ya que es la monetizacion del juego, en la iglesia puedes clonar objetos y rerrolear la skin del objeto, los objetos en la tienda tendran la skin mas fea posible y en la iglesia los mejoraras, y cuando ya tengas el color que quieres los clonaras para tener varios del mismo y asi tener mucha decoracion para poner tu isla como tu quieres.
 
 Necesitamos hacer el sistema para entrar en la casa y construir edificaciones utiles.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
