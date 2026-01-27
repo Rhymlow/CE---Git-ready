@@ -3208,6 +3208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321cf2b6cd3d90c4f9d2b6ed217f4867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 1
   enableTestAds: 1
   inputBuffer:
   - Z

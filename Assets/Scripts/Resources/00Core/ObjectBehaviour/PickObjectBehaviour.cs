@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using static GameSystem;
@@ -11,7 +12,10 @@ public class PickObjectBehaviour : MonoBehaviour
     bool onTriggersActivated = true;
     Material pickeableObjectMaterial;
     bool isUsableObjectSelected = false;
-    
+
+    int terrainCount = 0;
+    int blockingObjectsCount = 0;
+
 
     Renderer rend;
     MaterialPropertyBlock mpb;
@@ -59,6 +63,25 @@ public class PickObjectBehaviour : MonoBehaviour
         }
     }
 
+    IEnumerator UpdateHighlightState()
+    {
+        yield return new WaitForEndOfFrame();
+        if (!constructionModeActivated && !isAnItemPickedUp)
+            yield break;
+
+        if (pickedUpObject == null)
+            yield break;
+
+        if (terrainCount > 0 && blockingObjectsCount == 0)
+        {
+            pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
+        }
+        else
+        {
+            pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
+        }
+    }
+
     public bool GetIsUsableObjectSelected()
     {
         return isUsableObjectSelected;
@@ -96,11 +119,13 @@ public class PickObjectBehaviour : MonoBehaviour
     {
         if (constructionModeActivated || isAnItemPickedUp)
         {
-            if (pickedUpObject && (other.CompareTag("Terrain") && !other.CompareTag("Crop") && !other.CompareTag("Item")))
-            {
-                pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
-            }
+            if (pickedUpObject && other.CompareTag("Terrain"))
+                terrainCount++;
+            if (other.CompareTag("Item") || other.CompareTag("Crop"))
+                blockingObjectsCount++;
         }
+        StartCoroutine(UpdateHighlightState());
+        pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
     }
 
     private void OnTriggerExit(Collider other)
@@ -115,14 +140,14 @@ public class PickObjectBehaviour : MonoBehaviour
                     transform.parent.GetComponent<MeshRenderer>().material = pickeableObjectMaterial;
                 }
             }
-            if (pickedUpObject && (other.CompareTag("Terrain") && !other.CompareTag("Crop") && !other.CompareTag("Item")))
+            if (pickedUpObject && other.CompareTag("Terrain"))
             {
                 pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
             }
         }
         else if (isAnItemPickedUp)
         {
-            if (pickedUpObject && (other.CompareTag("Terrain") && !other.CompareTag("Crop") && !other.CompareTag("Item")))
+            if (pickedUpObject && other.CompareTag("Terrain"))
             {
                 pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
             }
@@ -145,28 +170,26 @@ public class PickObjectBehaviour : MonoBehaviour
         {
             if (other.gameObject == player && !pickeableObjects.Contains(transform.parent.gameObject) && onTriggersActivated)
             {
+                if (DebugMode)
+                {
+                    Debug.LogWarning(other.name);
+                    Debug.LogWarning("1");
+                }
                 pickeableObjects.Add(transform.parent.gameObject);
-            }
-            if (!onTriggersActivated && other.transform.tag == "Terrain")
-            {
-                Debug.Log(other.name);
-                Debug.Log(pickedUpObject.transform.parent.name);
-                pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
             }
         }
         else if (isAnItemPickedUp)
         {
-            if (!onTriggersActivated && other.transform.tag == "Terrain")
-            {
-                Debug.Log(other.name);
-                Debug.Log(pickedUpObject.transform.parent.name);
-                pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
-            }
         }
         else if (!constructionModeActivated && isUsableObject == true && player.GetComponent<PlayerMovement>().nameItemEquipped == usableItem)
         {
             if (other.gameObject == player && !usableObjects.Contains(transform.parent.gameObject))
             {
+                if (DebugMode)
+                {
+                    Debug.LogWarning(other.name);
+                    Debug.LogWarning("2");
+                }
                 usableObjects.Add(transform.parent.gameObject);
             }
         }

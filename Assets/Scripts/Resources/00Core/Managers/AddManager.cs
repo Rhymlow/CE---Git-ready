@@ -13,7 +13,10 @@ public class AddManager : MonoBehaviour
         GameSystem.addManager = this;
         MobileAds.Initialize((InitializationStatus initStatus) =>
         {
-            Debug.Log("AdMob inicializado");
+            if (GameSystem.DebugMode)
+            {
+                Debug.Log("AdMob inicializado");
+            }
             LoadRewardedAd();
         });
     }

@@ -103,7 +103,7 @@ public class GameSystem : MonoBehaviour
             GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
             foreach (GameObject obj in crops)
             {
-                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
             }
             foreach (GameObject obj in items)
             {
@@ -214,7 +214,10 @@ public class GameSystem : MonoBehaviour
                 Instantiate(Resources.Load(obj.prefabPath) as GameObject, new Vector3(obj.position.x, obj.position.y, obj.position.z), new Quaternion(obj.rotation.x, obj.rotation.y, obj.rotation.z, obj.rotation.w));
             }
             #endregion
-            Debug.Log("Game Loaded");
+            if (DebugMode)
+            {
+                Debug.Log("Game Loaded");
+            }
             return true;
         }
         else
@@ -283,7 +286,10 @@ public class GameSystem : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("Mensaje enviado exitosamente a Discord.");
+            if (DebugMode)
+            {
+                Debug.Log("Mensaje enviado exitosamente a Discord.");
+            }
         }
         else
         {
