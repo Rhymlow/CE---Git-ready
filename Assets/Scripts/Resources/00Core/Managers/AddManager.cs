@@ -13,10 +13,7 @@ public class AddManager : MonoBehaviour
         GameSystem.addManager = this;
         MobileAds.Initialize((InitializationStatus initStatus) =>
         {
-            if (GameSystem.DebugMode)
-            {
-                Debug.Log("AdMob inicializado");
-            }
+            GameSystem.DebugLog("AdMob initialized", GameSystem.DebugFilter.Ads);
             LoadRewardedAd();
         });
     }
@@ -31,7 +28,7 @@ public class AddManager : MonoBehaviour
             {
                 if (error != null || ad == null)
                 {
-                    Debug.LogError("Error al cargar el anuncio: " + error);
+                    GameSystem.DebugLog("Error to load the rewarded: " + error, GameSystem.DebugFilter.Error);
                     return;
                 }
 

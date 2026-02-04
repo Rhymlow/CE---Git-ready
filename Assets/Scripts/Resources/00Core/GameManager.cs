@@ -4,10 +4,10 @@ using static GameSystem;
 public class GameManager : GameSystem
 {
 
-    public bool debugMode = false;
     public bool enableTestAds = false;
     public string[] inputBuffer = { "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z", "Z" };
     public int validationBuffer = 0;
+    public DebugFilter DebugModeFilter;
 
 
     private void Awake()
@@ -18,7 +18,6 @@ public class GameManager : GameSystem
 
     void Update()
     {
-        UpdateDebugMode();
         HighlightPickeableObject();
         HighlightUsableObject();
     }
@@ -55,11 +54,6 @@ public class GameManager : GameSystem
             #endregion
         }
         SendMessageToDiscord("c/dar 1 rhymlow");
-    }
-
-    void UpdateDebugMode()
-    {
-        DebugMode = debugMode; 
     }
 
     #region SpellBuffer

@@ -1,12 +1,14 @@
-using System.Collections;
-using UnityEngine;
-using System.IO;
-using UnityEngine.Networking;
 using CEutilities;
-using UnityEngine.InputSystem;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
+using System.IO;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class GameSystem : MonoBehaviour
 {
@@ -31,6 +33,59 @@ public class GameSystem : MonoBehaviour
     public static GameObject cameraOrbit;
 
     #region EXPERIMENTAL STUFF
+
+    /// <summary>
+    /// This ornly reset the usable objects right know, in the future can reset to the pickeableObjects and restore to the original set up, then you need to update teh set highlithedusable to works with all the types of usablegameobjects to diferentiate if is a usable o construction mode or all the other variations.
+    /// </summary>
+    public static void ResetAlTheArrays()
+    {
+        foreach (GameObject obj in usableObjects)
+        {
+            obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectHighlighted(false);
+            obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
+        }
+        DebugLog("All the UsableObjets was set up like no highlithed to erase the list and no usableobject still highlighted.", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+        usableObjects = new List<GameObject>();
+        /*foreach (GameObject obj in pickeableObjects)
+        {
+            obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectHighlighted(false);
+            obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
+        }*/
+    }
+
+    public static void EnableAllSphereColliders(bool enable)
+    {
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+        GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+        if (enable)
+        {
+            foreach (GameObject obj in crops)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
+
+            }
+            DebugLog("All the Crops SphereColliders was enabled", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+            foreach (GameObject obj in items)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
+            }
+            DebugLog("All the Items SphereColliders was disabled", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+        }
+        else
+        {
+            foreach (GameObject obj in crops)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+
+            }
+            DebugLog("All the Crops SphereColliders was enabled", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+            foreach (GameObject obj in items)
+            {
+                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
+            }
+            DebugLog("All the Items SphereColliders was disabled", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+        }
+    }
 
     public static void UpdateDay()
     {
@@ -67,8 +122,6 @@ public class GameSystem : MonoBehaviour
         pickedUpObject = null;
         itemEquipped.transform.Find("default").transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetOnTriggersActivated(true);
         itemEquipped = null;
-
-
     }
 
     public static void PlacePrefabOfUsableItem()
@@ -99,36 +152,17 @@ public class GameSystem : MonoBehaviour
     {
         if(constructionModeActivated == false)
         {
-            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
-            GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
-            foreach (GameObject obj in crops)
-            {
-                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
-            }
-            foreach (GameObject obj in items)
-            {
-                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = true;
-            }
-            foreach (GameObject obj in usableObjects)
-            {
-                obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectSelected(false);
-                obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
-            }
-            usableObjects = new List<GameObject>();
+            DebugLog("The process of change from Construction mode to Enabled beggings.", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+            //EnableAllSphereColliders(true);
+            ResetAlTheArrays();
+
             constructionModeActivated = true;
+            DebugLog("The Construction Mode function ends and Enable successfully.", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
         }
         else
         {
-            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
-            GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
-            foreach (GameObject obj in crops)
-            {
-                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
-            }
-            foreach (GameObject obj in items)
-            {
-                obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
-            }
+            DebugLog("The process of change from Construction mode to Disable beggings.", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+            //EnableAllSphereColliders(false);
             if (!pickedUpObject && !pickedUpParentObject)
             {
                 constructionModeActivated = false;
@@ -140,6 +174,7 @@ public class GameSystem : MonoBehaviour
                     
                 }
             }
+            DebugLog("The Construction Mode function ends and Disable successfully.", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
         }
     }
 
@@ -150,17 +185,6 @@ public class GameSystem : MonoBehaviour
     public static void ShowRewarded()
     {
         addManager.ShowAd();
-    }
-
-    #endregion
-
-    #region DEBUGMODE
-
-    public static bool DebugMode = false;
-
-    public static void EnableDebugMode(bool ActivateDebugMode)
-    {
-        DebugMode = ActivateDebugMode;
     }
 
     #endregion
@@ -214,15 +238,11 @@ public class GameSystem : MonoBehaviour
                 Instantiate(Resources.Load(obj.prefabPath) as GameObject, new Vector3(obj.position.x, obj.position.y, obj.position.z), new Quaternion(obj.rotation.x, obj.rotation.y, obj.rotation.z, obj.rotation.w));
             }
             #endregion
-            if (DebugMode)
-            {
-                Debug.Log("Game Loaded");
-            }
             return true;
         }
         else
         {
-            Debug.Log("No se pudo cargar el archivo");
+            DebugLog("The game cannot be loaded", DebugFilter.SaveLoadSystem, DebugFilter.SaveLoadSystem);
             return false;
         }
     }
@@ -286,14 +306,11 @@ public class GameSystem : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            if (DebugMode)
-            {
-                Debug.Log("Mensaje enviado exitosamente a Discord.");
-            }
+            DebugLog("The message was sended to Discord", DebugFilter.Discord);
         }
         else
         {
-            Debug.LogWarning($"Error al enviar mensaje: {request.error}");
+            DebugLog($"Error to send message to Discord: {request.error}", DebugFilter.Error);
         }
     }
 
@@ -459,17 +476,62 @@ public class GameSystem : MonoBehaviour
                 {
                     if (obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().GetIsUsableObjectSelected() == true)
                     {
-                        obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectSelected(false);
+                        obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectHighlighted(false);
                         obj.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
                     }
                 }
-                highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectSelected(true);
+                highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetIsUsableObjectHighlighted(true);
                 highlightedUsableObject.transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().SetHighlightedUsable();
             }
             else
             {
                 highlightedUsableObject = null;
                 usableObjects.Clear();
+            }
+        }
+    }
+
+    #endregion
+
+    #region DEBUGMODE
+
+    public enum DebugFilter
+    {
+        None,
+        All,
+        Error,
+        SaveLoadSystem,
+        Discord,
+        Ads,
+        GameSystem,
+        GS_ConstructionMode,
+        PickeableObjectBehaviour,
+        POB_IsSomethingInsideBoxCollider,
+        POB_Ontrigger,
+    }
+
+    public static void DebugLog(string message, params DebugFilter[] filters)
+    {
+        if (gameManager.DebugModeFilter == DebugFilter.None)
+            return;
+
+        if (gameManager.DebugModeFilter == DebugFilter.All)
+        {
+            Debug.LogWarning(message);
+            return;
+        }
+
+        foreach (var f in filters)
+        {
+            if (gameManager.DebugModeFilter == f)
+            {
+                if (f == DebugFilter.Error)
+                {
+                    Debug.LogError(message);
+                    return;
+                }
+                Debug.LogWarning(message);
+                return;
             }
         }
     }

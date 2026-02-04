@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static GameSystem;
 
 public class PickObjectBehaviour : MonoBehaviour
@@ -16,12 +17,13 @@ public class PickObjectBehaviour : MonoBehaviour
     int terrainCount = 0;
     int blockingObjectsCount = 0;
 
-
     Renderer rend;
     MaterialPropertyBlock mpb;
 
     private void Awake()
     {
+        boxCollider = GetComponent<BoxCollider>();
+        sphereCollider = GetComponent<SphereCollider>();
         rend = this.transform.parent.GetComponent<MeshRenderer>();
         mpb = new MaterialPropertyBlock();
         pickeableObjectMaterial = transform.parent.GetComponent<MeshRenderer>().material;
@@ -63,6 +65,91 @@ public class PickObjectBehaviour : MonoBehaviour
         }
     }
 
+    BoxCollider boxCollider;
+    Collider[] overlapResults = new Collider[20];
+
+    bool IsSomethingInsideBoxCollider()
+    {
+        int count = Physics.OverlapBoxNonAlloc(
+            boxCollider.bounds.center,
+            boxCollider.bounds.extents,
+            overlapResults,
+            boxCollider.transform.rotation
+        );
+        DebugLog(this.transform.root + " the number of Colliders inside of this GameObject is " + count + " without filter by tag or ignore the self BoxCollider", DebugFilter.POB_IsSomethingInsideBoxCollider);
+
+        for (int i = 0; i < count; i++)
+        {
+            Collider c = overlapResults[i];
+
+            if (c == null)
+            {
+                DebugLog("This collider is null", DebugFilter.POB_IsSomethingInsideBoxCollider, DebugFilter.PickeableObjectBehaviour);
+                continue;
+            }
+
+            if (c == boxCollider)
+            {
+                DebugLog("This Collider is the BoxCollider of this GameObject, so was ignored.", DebugFilter.POB_IsSomethingInsideBoxCollider, DebugFilter.PickeableObjectBehaviour);
+                continue;
+            }
+
+            if (c != null && (c.transform.root.tag == "Item" || c.transform.root.tag == "Crop"))
+            {
+                DebugLog("This Collider is the BoxCollider of this GameObject, so was ignored.", DebugFilter.POB_IsSomethingInsideBoxCollider, DebugFilter.PickeableObjectBehaviour);
+                return true;
+            }
+        }
+        DebugLog(this.transform.root + " don't have Items or Crops inside him.", DebugFilter.POB_IsSomethingInsideBoxCollider, DebugFilter.PickeableObjectBehaviour);
+        return false; // no hay nada
+    }
+
+    SphereCollider sphereCollider;
+
+    bool IsSomethingInsideSphereCollider()
+    {
+        Vector3 center = sphereCollider.transform.TransformPoint(sphereCollider.center);
+
+        float radius = sphereCollider.radius * Mathf.Max(
+            sphereCollider.transform.lossyScale.x,
+            sphereCollider.transform.lossyScale.y,
+            sphereCollider.transform.lossyScale.z
+        );
+
+        int count = Physics.OverlapSphereNonAlloc(
+            center,
+            radius,
+            overlapResults
+        );
+        DebugLog(this.transform.root + " the number of Colliders inside of this GameObject is " + count + " without filter by tag or ignore the self BoxCollider", DebugFilter.POB_IsSomethingInsideBoxCollider);
+
+        for (int i = 0; i < count; i++)
+        {
+            Collider c = overlapResults[i];
+
+            if (c == null)
+            {
+                DebugLog("This collider is null", DebugFilter.POB_IsSomethingInsideBoxCollider, DebugFilter.PickeableObjectBehaviour);
+                continue;
+            }
+
+            if (c == boxCollider)
+            {
+                DebugLog("This Collider is the BoxCollider of this GameObject, so was ignored.", DebugFilter.POB_IsSomethingInsideBoxCollider, DebugFilter.PickeableObjectBehaviour);
+                continue;
+            }
+
+            if (c != null && (c.transform.root.tag == "Item" || c.transform.root.tag == "Crop"))
+            {
+                DebugLog("This Collider is the BoxCollider of this GameObject, so was ignored.", DebugFilter.POB_IsSomethingInsideBoxCollider, DebugFilter.PickeableObjectBehaviour);
+                return true;
+            }
+        }
+        DebugLog(this.transform.root + " don't have Items or Crops inside him.", DebugFilter.POB_IsSomethingInsideBoxCollider, DebugFilter.PickeableObjectBehaviour);
+        return false; // no hay nada
+    }
+
+
     IEnumerator UpdateHighlightState()
     {
         yield return new WaitForEndOfFrame();
@@ -87,11 +174,6 @@ public class PickObjectBehaviour : MonoBehaviour
         return isUsableObjectSelected;
     }
 
-    public void SetIsUsableObjectSelected(bool tisUsableObjectSelected)
-    {
-        isUsableObjectSelected = tisUsableObjectSelected;
-    }
-
     public Material GetPickeableObjectMaterial()
     {
         return pickeableObjectMaterial;
@@ -100,6 +182,11 @@ public class PickObjectBehaviour : MonoBehaviour
     public void SetOnTriggersActivated(bool tOnTriggersActivated)
     {
         onTriggersActivated = tOnTriggersActivated;
+    }
+
+    public void SetIsUsableObjectHighlighted(bool tisUsableObjectSelected)
+    {
+        isUsableObjectSelected = tisUsableObjectSelected;
     }
 
     public void SetHighlightedUsable()
@@ -117,6 +204,23 @@ public class PickObjectBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (constructionModeActivated)
+        {
+            if (other.gameObject == player && !pickeableObjects.Contains(transform.parent.gameObject) && onTriggersActivated)
+            {
+                pickeableObjects.Add(transform.parent.gameObject);
+            }
+        }
+        else if (!constructionModeActivated && isUsableObject == true && player.GetComponent<PlayerMovement>().nameItemEquipped == usableItem)
+        {
+            if (other.gameObject == player && !usableObjects.Contains(transform.parent.gameObject))
+            {
+                usableObjects.Add(transform.parent.gameObject);
+            }
+        }
+
+
+        DebugLog(other.transform.root.name + " was enter to the SphereCollider of " + this.gameObject.transform.root.name, DebugFilter.PickeableObjectBehaviour, DebugFilter.POB_Ontrigger);
         if (constructionModeActivated || isAnItemPickedUp)
         {
             if (pickedUpObject && other.CompareTag("Terrain"))
@@ -125,7 +229,25 @@ public class PickObjectBehaviour : MonoBehaviour
                 blockingObjectsCount++;
         }
         StartCoroutine(UpdateHighlightState());
-        pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
+        if (pickedUpObject != null)
+        {
+            pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
+        }
+
+        if (constructionModeActivated)
+        {
+            if (other.gameObject == player && !pickeableObjects.Contains(transform.parent.gameObject) && onTriggersActivated)
+            {
+                pickeableObjects.Add(transform.parent.gameObject);
+            }
+        }
+        if (!constructionModeActivated && isUsableObject == true && player.GetComponent<PlayerMovement>().nameItemEquipped == usableItem)
+        {
+            if (other.gameObject == player && !usableObjects.Contains(transform.parent.gameObject))
+            {
+                usableObjects.Add(transform.parent.gameObject);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -160,37 +282,6 @@ public class PickObjectBehaviour : MonoBehaviour
                 mpb.SetColor("_EmissionColor", Color.black);
                 rend.SetPropertyBlock(mpb);
                 isUsableObjectSelected = false;
-            }
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (constructionModeActivated)
-        {
-            if (other.gameObject == player && !pickeableObjects.Contains(transform.parent.gameObject) && onTriggersActivated)
-            {
-                if (DebugMode)
-                {
-                    Debug.LogWarning(other.name);
-                    Debug.LogWarning("1");
-                }
-                pickeableObjects.Add(transform.parent.gameObject);
-            }
-        }
-        else if (isAnItemPickedUp)
-        {
-        }
-        else if (!constructionModeActivated && isUsableObject == true && player.GetComponent<PlayerMovement>().nameItemEquipped == usableItem)
-        {
-            if (other.gameObject == player && !usableObjects.Contains(transform.parent.gameObject))
-            {
-                if (DebugMode)
-                {
-                    Debug.LogWarning(other.name);
-                    Debug.LogWarning("2");
-                }
-                usableObjects.Add(transform.parent.gameObject);
             }
         }
     }
