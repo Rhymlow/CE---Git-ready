@@ -12,7 +12,8 @@ using static GameManager;
 
 public class GameSystem : MonoBehaviour
 {
-    
+    #region Variables
+
     public static GameManager gameManager;
     public static AddManager addManager;
     public static GameObject player;
@@ -31,6 +32,8 @@ public class GameSystem : MonoBehaviour
     public static bool enableTestAd;
     public static int islandDay;
     public static GameObject cameraOrbit;
+
+    #endregion
 
     #region EXPERIMENTAL STUFF
 
