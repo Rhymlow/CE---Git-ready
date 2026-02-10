@@ -3226,7 +3226,7 @@ MonoBehaviour:
   - Z
   - Z
   validationBuffer: 0
-  DebugModeFilter: 7
+  DebugModeFilter: 0
 --- !u!4 &6221231274468254436
 Transform:
   m_ObjectHideFlags: 0

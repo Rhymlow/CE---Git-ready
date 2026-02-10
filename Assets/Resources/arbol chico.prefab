@@ -81,7 +81,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2992554587013693858}
+  - {fileID: 763481522707185750}
   m_Father: {fileID: 494528905471115641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1565455057800617471
@@ -112,6 +112,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -133,9 +135,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &3532558999959097319
 MeshCollider:
@@ -170,7 +174,7 @@ GameObject:
   - component: {fileID: 494528905471115641}
   m_Layer: 0
   m_Name: arbol chico
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,6 +244,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5402983317922309424, guid: 6707e89971ab22f419473db27acb1770, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6053102379837991006, guid: 6707e89971ab22f419473db27acb1770, type: 3}
+      propertyPath: isUsableObject
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8181296640634331350, guid: 6707e89971ab22f419473db27acb1770, type: 3}
       propertyPath: m_Name
       value: PickeableObject
@@ -249,8 +261,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6707e89971ab22f419473db27acb1770, type: 3}
---- !u!4 &2992554587013693858 stripped
+--- !u!4 &763481522707185750 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5304971911435739017, guid: 6707e89971ab22f419473db27acb1770, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7674368185510846077, guid: 6707e89971ab22f419473db27acb1770, type: 3}
   m_PrefabInstance: {fileID: 6924490388437179947}
   m_PrefabAsset: {fileID: 0}

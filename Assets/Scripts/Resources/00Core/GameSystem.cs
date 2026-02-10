@@ -1,11 +1,8 @@
 using CEutilities;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using static GameManager;
@@ -87,6 +84,25 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This is a temporary function, when the game was ready to release, when you have the enough time you need to change this system to quit all the PickeableObjectBehaviour script of all the items and configure in a new script inside the Player called PlayerAroundDetector to work the same but only in that script and not in all the items in the world space.
+    /// </summary>
+    public static void CheckIfIsSometingInsideInAllTheWorldItems()
+    {
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+        GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
+        foreach (GameObject obj in crops)
+        {
+            obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().IsSomethingInsideSphereCollider();
+        }
+        DebugLog("All the Crops check if is something inside them and update his highligted status", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+        foreach (GameObject obj in items)
+        {
+            obj.transform.Find("default").transform.Find("PickeableObject").GetComponent<PickObjectBehaviour>().IsSomethingInsideSphereCollider();
+        }
+        DebugLog("All the Items check if is something inside them and update his highligted status", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
+    }
+
     public static void UpdateDay()
     {
         islandDay++;
@@ -143,6 +159,18 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    public static void CheckIfIsSometingInsideThePickeableObject()
+    {
+        if (pickedUpObject.transform.Find("PickObjectBehaviour").GetComponent<PickObjectBehaviour>().IsSomethingInsideSphereCollider())
+        {
+            pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
+        }
+        else 
+        {
+            pickedUpObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
+        }
+    }
+
     #endregion
 
     #region CONSTRUCTION MODE
@@ -155,8 +183,8 @@ public class GameSystem : MonoBehaviour
             DebugLog("The process of change from Construction mode to Enabled beggings.", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
             //EnableAllSphereColliders(true);
             ResetAlTheArrays();
-
             constructionModeActivated = true;
+            CheckIfIsSometingInsideInAllTheWorldItems();
             DebugLog("The Construction Mode function ends and Enable successfully.", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
         }
         else
@@ -174,6 +202,7 @@ public class GameSystem : MonoBehaviour
                     
                 }
             }
+            CheckIfIsSometingInsideInAllTheWorldItems();
             DebugLog("The Construction Mode function ends and Disable successfully.", DebugFilter.All, DebugFilter.GameSystem, DebugFilter.GS_ConstructionMode);
         }
     }
@@ -351,7 +380,8 @@ public class GameSystem : MonoBehaviour
                 pickedUpObject = highlightedObject;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<SphereCollider>().enabled = false;
                 pickedUpObject.transform.Find("PickeableObject").GetComponent<BoxCollider>().size -= new Vector3(0, 0.5f, 0);
-                pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
+                //pickedUpObject.GetComponent<MeshRenderer>().material = highlightedWrongMaterial;
+                CheckIfIsSometingInsideThePickeableObject();
                 highlightedObject = null;
             }
             else
@@ -507,6 +537,7 @@ public class GameSystem : MonoBehaviour
         GS_ConstructionMode,
         PickeableObjectBehaviour,
         POB_IsSomethingInsideBoxCollider,
+        POB_IsSomethingInsideSphereCollider,
         POB_Ontrigger,
     }
 
